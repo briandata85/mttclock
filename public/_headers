@@ -1,0 +1,6 @@
+/*
+  Cache-Control: no-store
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://sipqgkatvkczxzafhcfn.supabase.co; media-src 'self' blob:; connect-src 'self' https://sipqgkatvkczxzafhcfn.supabase.co; worker-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'

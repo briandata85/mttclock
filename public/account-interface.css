@@ -1,0 +1,54 @@
+/* Account and tournament landing chrome share the director's browser preference. */
+.account-shell #account-navigation{margin-left:auto;align-items:center;gap:12px;}
+.account-shell #nav-account{display:grid;place-items:center;padding:0;width:44px;height:44px;flex:none;border:1px solid #5a6c61;background:#1d2b24;border-radius:50%;}
+#nav-account svg{width:23px;height:23px;}
+.account-style-options{display:flex;gap:2px;padding:3px;border:1px solid #526158;border-radius:9px;background:#101a14;}
+.account-style-options button{min-height:36px;padding:7px 12px;border:0;background:transparent;color:#c7d1cb;box-shadow:none;}
+.account-style-options button[aria-pressed="true"]{background:#d6e6d9;color:#182a20;}
+html[data-interface-style="forest"]{color-scheme:light;}
+html[data-interface-style="forest"] .account-shell{--font-controls:'Courier New','Liberation Mono',Courier,monospace;background:#e6e4d5;color:#243c2e;font-family:var(--font-controls);}
+html[data-interface-style="forest"] .account-shell .account-header{background:#173e2c;border:2px solid #304b39;border-radius:0 0 10px 10px;box-shadow:0 4px 0 #a7b49f;}
+html[data-interface-style="forest"] .account-shell .brand{color:#fff7dc;}
+html[data-interface-style="forest"] .account-shell .brand-mark{background:#c9dec6;color:#173e2c;border:2px solid #0e291c;border-radius:5px;}
+html[data-interface-style="forest"] .account-shell :is(.card,.tournament-card,dialog){background:#fffbea;border:2px solid #56715b;border-radius:8px;box-shadow:3px 4px 0 #a7b49f;color:#243c2e;}
+html[data-interface-style="forest"] .account-shell :is(h1,h2,h3){font-family:var(--font-controls);letter-spacing:-.035em;color:#203e2b;}
+html[data-interface-style="forest"] .account-shell :is(p,label,.list-help strong,.saved-date){color:#56624f;}
+html[data-interface-style="forest"] .account-shell :is(input,select,textarea){font-family:var(--font-controls);background:#f9f6e6;color:#203e2b;border:2px solid #56715b;}
+html[data-interface-style="forest"] .account-shell :is(button,.action){font-family:var(--font-controls);background:#c9dec6;color:#203e2b;border:2px solid #56715b;border-radius:5px;box-shadow:1px 2px 0 #a7b49f;}
+html[data-interface-style="forest"] .account-shell :is(.secondary,.action.secondary,.text-button){background:#f8f1d9;color:#203e2b;}
+html[data-interface-style="forest"] .account-shell :is(button,.action):hover:not(:disabled){background:#d8e8cf;color:#183421;}
+html[data-interface-style="forest"] .account-shell .danger{color:#923d30;}
+html[data-interface-style="forest"] .account-shell :is(.saved-badge,.saved-progress){background:#e3ebd8;color:#304c36;border-color:#b3c3a8;}
+html[data-interface-style="forest"] .account-shell .saved-progress :is(dt,.saved-progress-label){color:#5b6952;}
+html[data-interface-style="forest"] .account-shell .saved-progress dd{color:#203e2b;}
+html[data-interface-style="forest"] .account-shell .account-style-options{background:#0d2c1d;border-color:#6e967a;}
+html[data-interface-style="forest"] .account-shell .account-style-options button{min-height:36px;border:0;box-shadow:none;background:transparent;color:#f4edd6;}
+html[data-interface-style="forest"] .account-shell .account-style-options button[aria-pressed="true"]{background:#d8e8cf;color:#173e2c;}
+html[data-interface-style="forest"] .account-shell #nav-account{background:#f8f1d9;color:#173e2c;border:2px solid #102f20;box-shadow:1px 2px 0 #849c7d;border-radius:6px;}
+html[data-interface-style="forest"] .account-shell #nav-tournaments{color:#f4edd6;}
+html[data-interface-style="forest"] .account-shell .empty-state{border-color:#6c8066;}
+html[data-interface-style="forest"] .account-shell :is(.availability-note,.verified-note){color:#415f43;}
+html[data-interface-style="forest"] .account-shell :is(button,a,input,textarea):focus-visible{outline-color:#8f6e26;}
+@media(max-width:560px){.account-shell .account-header{gap:8px;padding:12px;}.account-shell #account-navigation{order:initial;width:auto;gap:8px;}.account-style-options button{padding-inline:8px;font-size:12px;}.account-shell #nav-account{width:40px;height:40px;}.account-shell .brand{font-size:16px;gap:6px;}}
+/* Override shared primary-button chrome for this compact segmented switch. */
+.account-shell #account-navigation .account-style-options button{background:transparent;color:#cad6ce;border:0;box-shadow:none;}
+.account-shell #account-navigation .account-style-options button[aria-pressed="true"]{background:#d6e6d9;color:#182a20;box-shadow:0 1px 2px #0003;}
+html[data-interface-style="forest"] .account-shell{--ui-primary:#c9dec6;--ui-primary-hover:#d8e8cf;}
+html[data-interface-style="forest"] .account-shell button:not(.secondary):not(.text-button):not(.danger):not(:disabled),html[data-interface-style="forest"] .account-shell .action:not(.secondary):not(.danger){box-shadow:2px 3px 0 #a7b49f;border-color:#56715b;}
+html[data-interface-style="forest"] .account-shell #account-navigation .account-style-options button{background:transparent;color:#f4edd6;border:0;box-shadow:none;}
+html[data-interface-style="forest"] .account-shell #account-navigation .account-style-options button[aria-pressed="true"]{background:#d8e8cf;color:#173e2c;}
+
+.password-entry{position:relative;display:block;}
+.account-shell .password-entry input{padding-right:52px;}
+.account-shell #show-password.password-eye{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:40px;height:40px;min-height:40px;margin:0;padding:9px;background:transparent;border:0;box-shadow:none;color:inherit;}
+.password-eye svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.password-eye .eye-slash{display:none;}.password-eye[aria-pressed="true"] .eye-slash{display:block;}
+.account-shell .tournament-card{padding:18px 20px;}
+.account-shell .saved-progress{padding:9px 12px;margin:0 0 12px;}
+.account-shell .saved-progress-label{display:none;}
+.account-shell .saved-progress dl{gap:8px 20px;}
+.account-shell .saved-progress dd{font-size:18px;margin-top:2px;}
+.account-shell .tournament-card .saved-date{margin:4px 0 12px;}
+.account-shell .tournament-actions{gap:8px;}
+.account-shell .tournament-card-heading h3{font-size:18px;}
+@media(max-width:560px){.account-shell .tournament-card{padding:14px;}.account-shell .tournament-card-heading.has-progress{grid-template-columns:minmax(0,1fr) auto;gap:8px;}.account-shell .tournament-card-heading.has-progress .action{font-size:12px;padding:8px;}.account-shell .saved-progress dl{gap:8px;}.account-shell .saved-progress dd{font-size:17px;}}

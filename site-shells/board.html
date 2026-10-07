@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#062f17">
+  <meta name="description" content="A customizable online poker tournament clock with blinds, payouts, breaks, and live chip calculations.">
+  <title>MTTClock · Tournament Clock</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23062f17'/%3E%3Cpath d='M16 5C12 10 7 12 7 18c0 4 5 6 8 3-1 3-2 4-4 5h10c-2-1-3-2-4-5 3 3 8 1 8-3 0-6-5-8-9-13z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/local.css">
+  <link rel="stylesheet" href="/wsop.css">
+  <link rel="stylesheet" href="/recovery.css">
+  <link rel="stylesheet" href="/theme-picker.css">
+  <link rel="stylesheet" href="/workspace.css">
+  <link rel="stylesheet" href="/surfaces.css">
+  <link rel="stylesheet" href="/interface-style.css">
+  <link rel="stylesheet" href="/loading.css">
+  <script type="module" src="/interface-style.js"></script>
+</head>
+<body class="clock-shell">
+  <section id="access-screen" class="access-card" aria-busy="true" aria-labelledby="access-title">
+    <div class="access-window-bar" aria-hidden="true"><span>TOURNAMENT DESK</span><span>♠</span></div>
+    <div class="access-content"><div class="access-brand"><span class="access-mark" aria-hidden="true">♠</span><div><h1 id="access-title">MTTClock</h1><span class="access-caption">Your tournament, ready to run.</span></div></div>
+    <p id="access-message" role="status" aria-live="polite">Connecting to your tournament…</p>
+    <div class="access-progress" aria-hidden="true"><span></span></div>
+    <div id="local-access-help" hidden><p>Sign in to open your saved tournaments.</p></div>
+    <nav class="access-links" aria-label="Connection help"><a href="/tournaments">My Tournaments</a><a href="/login">Sign In</a></nav></div>
+  </section>
+  <main class="app" id="app" hidden>
+    <template id="board-template">
+    <section class="board" aria-label="Live tournament display">
+      <div class="clock-brand-row">
+        <span>TOURNAMENT CLOCK</span><span class="table-numbers" id="table-numbers" aria-label="Table numbers" hidden></span>
+      </div>
+      <div class="event-name" id="event-name">$130 NO-LIMIT HOLD'EM TRIPLE STACK TURBO</div>
+
+      <section class="board-grid">
+        <article class="payouts-panel payouts-left panel" data-display-field="payouts">
+          <div class="panel-heading"><span>Remaining Places</span><small id="places-paid-label">9 places</small></div>
+          <div class="payout-viewport"><p class="payout-empty-state" id="payout-empty-left" role="status" aria-live="polite" hidden></p><ol class="payout-list" id="payout-list"></ol></div>
+        </article>
+
+        <article class="clock-panel panel">
+          <div class="level-kicker" id="level-kicker">LEVEL 1</div>
+          <div class="main-timer" id="timer" aria-live="polite">20:00</div>
+          <span id="pause-label" hidden>PAUSED</span>
+          <div class="progress-track" aria-hidden="true"><span id="level-progress"></span></div>
+        </article>
+
+        <article class="payouts-panel payouts-right panel" data-display-field="payouts">
+          <div class="panel-heading"><span>Remaining Places</span><small id="places-paid-label-right"></small></div>
+          <div class="payout-viewport"><p class="payout-empty-state" id="payout-empty-right" aria-hidden="true" hidden></p><ol class="payout-list" id="payout-list-right"></ol></div>
+        </article>
+
+        <article class="blinds-panel panel">
+          <div class="classic-data-line"><span>Ante:</span><strong id="ante">200</strong></div>
+          <div class="classic-data-line"><span>Small Blind:</span><strong id="small-blind">100</strong></div>
+          <div class="classic-data-line"><span>Big Blind:</span><strong id="big-blind">200</strong></div>
+        </article>
+
+        <article class="details-panel panel">
+          <div data-display-field="prizePool"><span>Prize Pool:</span><strong id="prize-pool">$23,205</strong></div>
+          <div data-display-field="nextAnte"><span>Next Ante:</span><strong id="next-ante">400</strong></div>
+          <div data-display-field="nextBlinds"><span>Next Blinds:</span><strong id="next-blinds">200 - 400</strong></div>
+          <div data-display-field="totalChips"><span>Total Chips:</span><strong id="total-chips">910,000</strong></div>
+          <div data-display-field="averageStack"><span>Avg. Chips:</span><strong id="average-stack">21,667</strong></div>
+          <div data-display-field="nextBreak"><span>Next Break:</span><strong id="next-break">60 min</strong></div>
+          <div data-display-field="chopValue"><span>Chop Value:</span><strong id="chop-value">$553</strong></div>
+          <div data-display-field="lateReg"><span>Late Reg:</span><strong id="late-reg">—</strong></div>
+        </article>
+
+        <article class="stats-panel panel">
+          <div class="stat" data-display-field="entrants"><span>Entrants</span><strong id="entrants">91</strong></div>
+          <div class="stat" data-display-field="playersLeft"><span>Players Left</span><strong id="players-left">42</strong></div>
+        </article>
+
+        <div class="clock-emblem" id="wall-clock" data-display-field="wallClock" role="img" aria-label="Current time"><span class="clock-hand hour-hand" id="hour-hand"></span><span class="clock-hand minute-hand" id="minute-hand"></span><span class="clock-hand second-hand" id="second-hand"></span></div>
+
+        <div class="ticker" id="ticker" aria-label="Tournament announcement"><span id="ticker-text">WELCOME POKER CHIP FORUM - GOOD LUCK!</span></div>
+      </section>
+    </section>
+    <section class="wsop-board" aria-label="Live tournament display — Modern">
+      <header class="wsop-header">
+        <div class="wsop-logo-slot"><img class="wsop-wordmark" alt="Tournament logo" width="216" height="81" hidden></div>
+        <div class="wsop-event" id="wsop-event-name"></div>
+        <div class="wsop-tables" id="wsop-table-numbers" aria-label="Table numbers"></div>
+        <div class="wsop-wall-clock" id="wsop-wall-clock" data-display-field="wallClock" role="img" aria-label="Current time"><span class="clock-hand hour-hand" id="wsop-hour-hand"></span><span class="clock-hand minute-hand" id="wsop-minute-hand"></span><span class="clock-hand second-hand" id="wsop-second-hand"></span></div>
+      </header>
+      <div class="wsop-content">
+        <div class="wsop-background-art artwork-stage" aria-hidden="true"><i></i><i></i><i></i></div>
+        <aside class="wsop-facts" id="wsop-left-facts" aria-label="Tournament totals">
+          <div class="wsop-fact wsop-prize" data-display-field="prizePool"><span>Total Prize</span><strong id="wsop-prize-pool"></strong></div>
+          <div class="wsop-fact wsop-prize" id="wsop-next-prize-field" data-display-field="nextPrize"><span>Next Prize</span><strong id="wsop-next-prize"></strong></div>
+          <div class="wsop-fact wsop-chop" data-display-field="chopValue"><span>Chop Value</span><strong id="wsop-chop-value"></strong></div>
+          <div class="wsop-fact" data-display-field="totalChips"><span>Total Chips</span><strong id="wsop-total-chips"></strong></div>
+          <div class="wsop-fact" id="wsop-late-reg-field" data-display-field="lateReg"><span>Late Reg.</span><strong id="wsop-late-reg"></strong></div>
+          <div class="wsop-fact" id="wsop-players-field" data-display-field="playersLeft"><span>Players Left</span><strong id="wsop-players-left"></strong></div>
+        </aside>
+        <section class="wsop-center" aria-label="Level and blinds">
+          <div class="wsop-hero">
+            <div class="wsop-level" id="wsop-level-kicker"></div>
+            <div class="wsop-timer" id="wsop-timer" aria-live="polite"></div>
+            <div class="wsop-pause-line" id="wsop-pause-label" role="status"></div>
+            <div class="wsop-blinds"><span id="wsop-blinds-label">Blinds</span><strong id="wsop-current-blinds"></strong></div>
+            <div class="wsop-next" data-display-field="nextBlinds"><span>Next</span><strong id="wsop-next-blinds"></strong></div>
+            <div class="theme-context theme-extra" id="theme-context" hidden>
+              <div class="theme-context-heading"><span class="theme-context-label" id="theme-progress-label">Level remaining</span><strong id="theme-progress-text"></strong></div>
+              <div class="theme-progress-track" id="theme-progress" role="progressbar" aria-label="Level remaining" aria-valuemin="0" aria-valuemax="100"><i id="theme-progress-fill"></i></div>
+            </div>
+          </div>
+          <div class="wsop-break-strip" id="wsop-break-strip">
+            <div data-display-field="nextBreak"><span>Next Break </span><strong id="wsop-next-break"></strong></div>
+            <p data-display-field="playDown" id="wsop-play-down"></p>
+          </div>
+          <div class="wsop-stack-strip" id="wsop-stack-strip">
+            <div data-display-field="largestStack"><span>Largest Stack</span><strong id="wsop-largest-stack"></strong></div>
+            <div data-display-field="averageStack"><span>Average Stack</span><strong id="wsop-average-stack"></strong></div>
+            <div data-display-field="smallestStack"><span>Smallest Stack</span><strong id="wsop-smallest-stack"></strong></div>
+          </div>
+        </section>
+        <aside class="wsop-right" aria-label="Payouts and tournament status">
+          <div class="wsop-payout-viewport" data-display-field="payouts"><div class="theme-payout-heading"><span>Remaining payouts</span><strong id="theme-places-paid"></strong></div><ol class="wsop-payout-list" id="wsop-payout-list" aria-label="Remaining payouts"></ol><p id="wsop-payout-range-note" hidden>Amount ranges show lowest–highest prizes.</p></div>
+          <div class="wsop-facts" id="wsop-right-facts"></div>
+        </aside>
+        <section class="theme-agenda theme-extra" id="theme-agenda" aria-label="Upcoming tournament structure" hidden><h2>Coming up</h2><ol id="theme-agenda-list"></ol></section>
+      </div>
+    </section>
+    </template>
+    <section id="recovery-board" class="recovery-notice" role="alert" hidden>
+      <p id="recovery-board-message"></p>
+      <a id="recovery-board-review" target="_blank" rel="noopener">Review recovered clock in new tab</a>
+    </section>
+    <button id="display-fullscreen" class="display-fullscreen" aria-label="Enter fullscreen" title="Fullscreen" hidden></button>
+  </main>
+  <section id="director-controls" class="director-controls" hidden aria-label="Director controls">
+    <div class="director-status"><span class="director-summary" id="director-summary"></span><span id="director-payout-warning" role="status" aria-live="polite" hidden><span id="director-payout-warning-text"></span></span><span id="connection-status" role="status" hidden></span></div>
+    <div class="director-toolbar">
+    <div class="control-group control-navigation" role="group" aria-label="Tournament navigation">
+      <a id="director-my-tournaments" href="/tournaments" aria-label="My Tournaments" title="Back to My Tournaments"><span data-control-icon="tournaments"></span><span class="navigation-label-wide">My Tournaments</span><span class="navigation-label-compact" aria-hidden="true">Tournaments</span></a>
+      <div class="control-navigation-tools" role="group" aria-label="Settings and display">
+        <button id="director-settings"><span data-control-icon="settings"></span>Settings</button>
+        <a id="director-open-display" href="/tournaments" target="_blank" rel="noopener" aria-label="Open Display (opens in a new tab)" title="Open Display in a New Tab"><span data-control-icon="display"></span>Open Display<span class="new-tab-cue" data-control-icon="external" aria-hidden="true"></span></a>
+      </div>
+      <div class="interface-style-options" role="group" aria-label="Interface style" title="Interface style follows your tournament color and is saved on this browser"><button type="button" data-interface-style="current" aria-pressed="true">Modern</button><button type="button" data-interface-style="forest" aria-pressed="false">Retro</button></div>
+      <span id="interface-style-status" class="visually-hidden" role="status"></span>
+    </div>
+    <div class="director-actions" aria-label="Tournament actions">
+      <div class="control-group" role="group" aria-label="Clock">
+        <span class="control-group-title" aria-hidden="true">Clock</span>
+        <button data-command="toggle" id="director-toggle" class="primary-action"><span data-control-icon="play"></span><span id="director-toggle-label">Start</span></button>
+        <button data-command="previous" aria-label="Previous Level" title="Previous Level"><span data-control-icon="previous"></span>Previous</button>
+        <button data-command="next" aria-label="Next Level" title="Next Level"><span data-control-icon="next"></span>Next</button>
+        <button id="director-time" aria-label="Set Remaining Time" title="Set Remaining Time" aria-expanded="false" aria-controls="time-editor"><span data-control-icon="time"></span>Set Time</button>
+      </div>
+      <div class="control-group" role="group" aria-label="Players">
+        <span class="control-group-title" aria-hidden="true">Players</span>
+        <button data-command="remove"><span data-control-icon="remove"></span>Player Out</button>
+        <button data-command="restore"><span data-control-icon="restore"></span>Restore Player</button>
+        <button data-command="add-entry"><span data-control-icon="add"></span>Add Player</button>
+      </div>
+    </div>
+    </div>
+    <p class="controls-scroll-hint" id="controls-scroll-hint" hidden>Swipe or scroll sideways for more controls</p>
+    <form id="time-editor" class="time-editor" hidden>
+      <label for="time-input">Remaining time (mm:ss)</label><input id="time-input" value="20:00" inputmode="numeric" autocomplete="off" aria-describedby="time-editor-error">
+      <button id="set-time" type="submit">Set Time</button><button id="cancel-time" type="button">Cancel</button>
+      <p id="time-editor-error" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="setup-drawer" id="setup-drawer" role="dialog" aria-modal="true" aria-labelledby="setup-title" aria-hidden="true" inert>
+    <header class="drawer-header">
+      <div><span class="eyebrow">TOURNAMENT DIRECTOR</span><h1 id="setup-title" tabindex="-1">Settings</h1></div>
+      <button class="icon-button" id="close-setup" aria-label="Close setup">×</button>
+      <div class="settings-live-context" id="settings-live-context" aria-label="Accepted tournament clock" hidden><span class="settings-live-label">Accepted clock</span><strong id="settings-live-timer"></strong><span id="settings-live-level"></span><span id="settings-live-status"></span><span id="settings-live-players"></span></div>
+    </header>
+    <nav class="setup-tabs" role="tablist" aria-label="Settings sections">
+      <button class="active" id="tab-tournament" data-tab="tournament" role="tab" aria-selected="true" aria-controls="panel-tournament">Tournament</button>
+      <button id="tab-blinds" data-tab="blinds" role="tab" aria-selected="false" aria-controls="panel-blinds" tabindex="-1">Blinds</button>
+      <button id="tab-payouts" data-tab="payouts" role="tab" aria-selected="false" aria-controls="panel-payouts" tabindex="-1">Payouts</button>
+      <button id="tab-appearance" data-tab="appearance" role="tab" aria-selected="false" aria-controls="panel-appearance" tabindex="-1">Appearance</button>
+      <button id="tab-sharing" data-tab="sharing" role="tab" aria-selected="false" aria-controls="panel-sharing" tabindex="-1">Sharing</button>
+    </nav>
+
+    <section id="recovery-drawer" class="recovery-notice" role="alert" hidden>
+      <p id="recovery-drawer-message"></p>
+      <p id="recovery-retention"></p>
+      <a id="recovery-drawer-review" target="_blank" rel="noopener">Review recovered clock in new tab</a>
+      <label for="recovery-retained">Retained changes (read-only)</label>
+      <textarea id="recovery-retained" readonly rows="4" spellcheck="false"></textarea>
+    </section>
+    <div class="drawer-scroll">
+      <div id="draft-conflicts" class="draft-notice" hidden><strong>Changes from another screen</strong><p>Your edits have been kept. Review the conflicts, then keep your values or use Discard changes to load the saved version.</p><ul id="conflict-list"></ul><button id="keep-draft" type="button">Keep my values</button></div>
+      <p id="setup-validation" class="settings-validation" role="alert" hidden></p>
+      <section id="new-tournament-guide" class="creation-guide" aria-labelledby="creation-guide-title" hidden>
+        <header class="creation-guide-header">
+          <div><span class="creation-guide-eyebrow">FIRST-RUN GUIDE</span><h2 id="creation-guide-title">Set Up the Essentials</h2></div>
+          <button id="dismiss-tournament-guide" type="button" class="secondary-button" aria-label="Dismiss first-run guide">Got it</button>
+        </header>
+        <div class="creation-guide-steps" role="group" aria-label="First-run setup steps">
+          <button type="button" data-guide-tab="tournament" aria-controls="panel-tournament"><span class="creation-guide-number">1</span><span>Tournament</span></button>
+          <button type="button" data-guide-tab="blinds" aria-controls="panel-blinds"><span class="creation-guide-number">2</span><span>Blinds</span></button>
+          <button type="button" data-guide-tab="payouts" aria-controls="panel-payouts"><span class="creation-guide-number">3</span><span>Payouts</span></button>
+        </div>
+        <p id="setup-guide-status" class="creation-guide-status" role="status" aria-live="polite">Viewing step 1 of 3 · Tournament</p>
+        <p class="creation-guide-copy">Defaults are ready to use. Appearance and Sharing are optional. Choose Save + Close when ready. Start the clock separately.</p>
+      </section>
+      <section class="tab-panel active" id="panel-tournament" data-panel="tournament" role="tabpanel" aria-labelledby="tab-tournament">
+        <div class="settings-section-intro"><h2>Tournament Essentials</h2><p>Set the game details. Changes reach the live display only when you save.</p></div>
+        <div class="form-grid">
+          <label class="span-2">Event name<input id="event-name-input" type="text" maxlength="70"></label>
+          <label class="span-2">Currency<select id="currency-input" aria-label="Currency" title="Changes the display symbol, not the amounts."></select></label>
+          <label>Entrants<input id="entrants-input" type="number" min="0" max="10000" step="1"></label>
+          <label>Players left<input id="players-input" type="number" min="0" step="1"></label>
+          <label>Buy-in<input id="buy-in-input" type="number" min="0" step="1"></label>
+          <label>Starting stack<input id="starting-stack-input" type="number" min="1" step="500"></label>
+          <label class="span-2">Late registration closes<select id="registration-cutoff"></select></label>
+        </div>
+        <dl class="tournament-totals" aria-label="Tournament totals">
+          <div class="pool-total"><dt>Tournament Prize Pool</dt><dd id="calc-prize-pool"></dd></div>
+          <div data-bounty-total hidden><dt>Pool before bounties</dt><dd id="calc-gross"></dd></div>
+          <div data-bounty-total hidden><dt>Bounty pool</dt><dd id="calc-bounty"></dd></div>
+        </dl>
+        <details class="settings-disclosure" id="stack-details">
+          <summary><span>Stack Details</span><span class="disclosure-value">Optional</span></summary>
+          <p class="settings-section-note">Record the largest and smallest stacks for display layouts that show them. Leave blank if you are not tracking them.</p>
+          <div class="form-grid disclosure-content"><label>Largest stack (optional)<input id="presentation-largestStack" data-presentation-input="largestStack" type="number" min="0" max="1000000000000" step="1" placeholder="Not recorded"></label><label>Smallest stack (optional)<input id="presentation-smallestStack" data-presentation-input="smallestStack" type="number" min="0" max="1000000000000" step="1" placeholder="Not recorded"></label></div>
+        </details>
+        <details class="settings-disclosure" id="bounty-settings">
+          <summary><span>Bounties</span><span class="disclosure-value" id="bounty-summary">Off</span></summary>
+          <div class="form-grid disclosure-content">
+            <label>Bounty allocation<select id="bounty-mode"><option value="off">No bounty</option><option value="per-entry">Bounty per entry</option><option value="total">Total bounty pool</option></select></label>
+            <label><span id="bounty-amount-label">Bounty amount</span><input id="bounty-amount" type="number" min="0" max="10000000000" step="0.01" aria-describedby="bounty-error"></label>
+          </div>
+        </details>
+        <p id="bounty-error" class="settings-error" role="status" aria-live="polite" hidden></p>
+        <details class="settings-disclosure" id="more-settings">
+          <summary><span>Advanced Settings</span><span class="disclosure-value" id="advanced-settings-summary">Optional</span></summary>
+          <div class="disclosure-content">
+        <div class="prize-contribution-help">
+          <label>Prize contribution per entry<input id="prize-entry-input" type="number" min="0" step="0.01" aria-describedby="prize-contribution-help"></label>
+          <p id="prize-contribution-help">Leave blank to use the full buy-in. Enter an override only if part of each buy-in is excluded from prizes, such as a fee. Bounties are deducted separately.</p>
+          <button id="use-buy-in" type="button" class="secondary-button">Use full buy-in</button>
+          <p id="prize-contribution-warning" role="status" hidden></p>
+          <p id="prize-pool-formula"></p>
+        </div>
+
+            <div class="sound-controls">
+              <label class="sound-switch"><input id="sound-enable" type="checkbox" checked>Sound on</label>
+              <label class="sound-volume">Volume <input id="sound-volume" type="range" min="0" max="100" value="70"><output id="sound-volume-value" for="sound-volume">70%</output></label>
+            </div>
+            <div class="sound-test-controls"><button id="director-sound-check" type="button" class="secondary-button">Test sound</button><span id="director-sound-check-status" role="status" aria-live="polite"></span></div>
+            <div class="custom-announcement-controls">
+              <label for="custom-announcement">Custom announcement</label>
+              <textarea id="custom-announcement" maxlength="240" rows="3" placeholder="Players, please take your seats." aria-describedby="announcement-help announcement-count"></textarea>
+              <div class="announcement-actions"><button id="announce-message" type="button" class="secondary-button">Announce</button><span id="announcement-count">0/240</span></div>
+              <p id="announcement-help">Reads aloud here and on the sound-enabled display using each device’s local voice. Tap the display once first.</p>
+              <p id="announcement-status" role="status" aria-live="polite"></p>
+            </div>
+            <div class="table-settings">
+              <label class="inline-check"><input id="show-table-numbers-input" type="checkbox">Show table numbers</label>
+              <label>Table numbers<input id="table-numbers-input" type="text" maxlength="40" placeholder="e.g. 1, 2, 3"></label>
+            </div>
+            <label class="inline-check"><input id="auto-advance-input" type="checkbox">Auto-advance levels</label>
+          </div>
+        </details>
+      </section>
+
+      <section class="tab-panel" id="panel-blinds" data-panel="blinds" role="tabpanel" aria-labelledby="tab-blinds">
+        <div class="section-title">
+          <div><h2>Blind Structure</h2><p>Choose a preset, then customize any level.</p></div>
+          <div class="blind-options"><label for="no-ante"><input id="no-ante" type="checkbox">No ante</label></div>
+        </div>
+        <label>Structure preset
+          <select id="structure-preset">
+            <option value="deepstack">Deepstack</option>
+            <option value="standard">Standard</option>
+            <option value="turbo">Turbo</option>
+            <option value="mixed">Omaha / Stud Mixed</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <div class="structure-summary" id="structure-summary"></div>
+        <div class="levels-table-wrap">
+          <table class="levels-table">
+            <thead><tr><th>#</th><th>Min</th><th>Small</th><th>Big</th><th>Ante</th><th>Break</th><th></th></tr></thead>
+            <tbody id="levels-body"></tbody>
+          </table>
+        </div>
+        <div class="structure-add-actions"><button class="secondary-button" type="button" id="add-level">+ Add level</button><button class="secondary-button" type="button" id="add-break">+ Add break</button></div>
+      </section>
+      <section class="tab-panel" id="panel-sharing" data-panel="sharing" role="tabpanel" aria-labelledby="tab-sharing">
+        <div class="settings-section-intro"><h2>Connect Your Screens</h2><p>Use the director to run the game and a separate display for the table. Check each link’s access before sharing.</p></div>
+        <p id="sharing-help">Sign in with the same account on your computer or phone to control your tournament. Share the Display link with your audience.</p>
+        <label id="network-origin-label">Address for other devices<select id="network-origin"></select></label>
+        <label id="custom-share-origin-label" hidden>Other app address<input id="custom-share-origin" type="url" placeholder="https://your-app.example" autocomplete="off" spellcheck="false"></label>
+        <p id="share-address-help" role="status"></p>
+        <div class="share-actions">
+          <a id="open-director" href="/tournaments" target="_blank" rel="noopener">Open director</a>
+          <button id="open-display">Open display</button>
+          <button id="pair-phone" hidden>Pair phone director</button>
+          <button id="pair-display" hidden>Pair another display</button>
+        </div>
+        <div id="local-pairing-help" hidden><label>Pairing link (one use, expires in 10 minutes)<input id="pairing-link" readonly></label>
+        <button id="copy-pairing">Copy pairing link</button>
+        <p>Director pairing grants control. Share it only with the person running the tournament.</p></div>
+        <div id="account-links" hidden>
+          <label>Director URL<input id="director-link" readonly></label><button id="copy-director">Copy director URL</button>
+          <label>Display URL<input id="display-link" readonly></label><button id="copy-display">Copy display URL</button>
+          <p>Director requires sign-in. When Display access is enabled, anyone with its URL can view the clock.</p>
+          <div id="display-access-controls" hidden>
+            <p id="display-access-status" role="status" aria-live="polite"></p>
+            <button id="display-access-toggle" type="button" disabled aria-describedby="display-access-details">Disable Display access</button>
+            <p id="display-access-details">Re-enabling restores the same Display URL. Observer links are managed separately. Previously issued online image links can remain usable until their five-minute expiry. Downloaded copies cannot be revoked.</p>
+          </div>
+        </div>
+        <div class="share-actions"><button id="create-observer">Create / regenerate observer link</button><button id="disable-observer">Disable observer sharing</button></div>
+        <label>Observer link<input id="observer-link" readonly></label>
+        <button id="copy-observer">Copy observer link</button>
+        <p id="observer-status">Observer sharing is disabled.</p>
+        <p>Observer links are silent and revocable. Disabling one does not disable the public Display URL.</p>
+      </section>
+
+      <section class="tab-panel" id="panel-payouts" data-panel="payouts" role="tabpanel" aria-labelledby="tab-payouts">
+        <div class="payout-tool-buttons"><button type="button" id="open-payout-calculator" class="secondary-button" aria-haspopup="dialog">Payout Calculator</button><button type="button" id="open-icm-calculator" class="secondary-button" aria-haspopup="dialog">ICM Calculator</button></div>
+        <dialog id="payout-calculator-dialog" class="calculator-dialog" aria-labelledby="payout-calculator-title">
+          <header class="calculator-dialog-header"><h2 id="payout-calculator-title">Payout Calculator</h2><button type="button" class="calculator-close" data-close-calculator="payout-calculator-dialog" aria-label="Close payout calculator">×</button></header>
+          <div class="calculator-dialog-body">        <div class="payout-calculator">
+          
+          <dl class="calculator-totals">
+            <div><dt>Entries</dt><dd id="calculator-entries"></dd></div>
+            <div><dt>Prize pool</dt><dd id="calculator-pool"></dd></div>
+          </dl>
+          <div class="form-grid calculator-fields">
+            <label>Places paid<select id="calculator-itm"><option value="5">5%</option><option value="10">10%</option><option value="12">12%</option><option value="15" selected>15%</option><option value="18">18%</option><option value="20">20%</option><option value="25">25%</option></select></label>
+            <label>Minimum cash<select id="calculator-minimum"><option value="1">1x Buy-In</option><option value="1.5">1.5x Buy-In</option><option value="2" selected>2x Buy-In</option></select></label>
+            <label>Payout style<select id="calculator-type"><option value="steep">Steep</option><option value="normal" selected>Normal</option><option value="flat">Flat</option><option value="flatter">Flatter</option></select></label>
+            <label>Final table seats<select id="calculator-final-table"><option value="9">9</option><option value="7">7</option><option value="5">5</option></select></label>
+          </div>
+          <div class="calculator-options">
+            <details class="settings-disclosure" id="paid-place-settings">
+              <summary><span>Exact Paid Places</span><span class="disclosure-value" id="paid-place-summary">Automatic</span></summary>
+              <div class="disclosure-content"><label>Number of places<input id="calculator-places" type="number" min="1" max="1000" step="1" placeholder="Automatic" title="Leave blank to use the percentage; enter 1 for winner take all."></label></div>
+            </details>
+            <details class="settings-disclosure" id="rounding-settings">
+              <summary><span>Rounding</span><span class="disclosure-value" id="rounding-summary">$5</span></summary>
+              <div class="disclosure-content"><label>Increment<select id="calculator-rounding"><option value="5">$5</option><option value="10">$10</option><option value="20">$20</option></select></label></div>
+            </details>
+          </div>
+          <div class="calculator-results">
+            <div class="calculator-preview-heading"><h3>Preview</h3><p id="calculator-status" role="status"></p></div>
+            <div id="calculator-preview" class="large-payout-preview" aria-label="Payout preview"></div>
+          </div>
+          <button id="apply-calculated-payouts" type="button" class="save-button full-button">Apply payouts</button>
+        </div>
+</div>
+        </dialog>
+        <label>Payout display timing<select id="payout-visibility-input"><option value="always">Show payouts now</option><option value="after-registration">Show payouts after late registration closes</option></select></label>
+        <p id="payout-warning" class="draft-notice" role="status"></p>
+        <div class="payout-summary">
+          <div><span>Places paid</span><strong id="payout-places">9</strong></div>
+          <div><span>Pool assigned</span><strong id="payout-assigned">$23,205</strong></div>
+          <div><span>Difference</span><strong id="payout-difference">$0</strong></div>
+        </div>
+        <div class="payout-editor" id="payout-editor"></div>
+        <button class="secondary-button full-button" id="edit-saved-payouts">Edit saved amounts manually</button>
+        <button class="secondary-button full-button" id="add-payout" hidden>+ Add paid place</button>
+        <dialog id="icm-calculator-dialog" class="calculator-dialog" aria-labelledby="icm-calculator-title">
+          <header class="calculator-dialog-header"><h2 id="icm-calculator-title">ICM Calculator</h2><button type="button" class="calculator-close" data-close-calculator="icm-calculator-dialog" aria-label="Close ICM calculator">×</button></header>
+          <div class="calculator-dialog-body">
+            <div class="icm-row-heading"><span>Player</span><span>Chip stack</span><span>Prize by place</span><span></span></div>
+            <div id="icm-player-rows"></div>
+            <div class="icm-tools"><button id="icm-add-player" type="button" class="secondary-button">+ Add player</button><button id="icm-use-payouts" type="button" class="secondary-button">Use current payouts</button></div>
+            <button id="icm-calculate" type="button" class="save-button full-button">Calculate ICM</button>
+            <p id="icm-status" role="status" aria-live="polite"></p>
+            <div id="icm-results" class="large-payout-preview" aria-label="ICM estimates"></div>
+          </div>
+        </dialog>
+      </section>
+
+      <section class="tab-panel" id="panel-appearance" data-panel="appearance" role="tabpanel" aria-labelledby="tab-appearance">
+<div class="settings-section-intro"><h2>Make It Your Table</h2><p>Choose a layout, then adjust colors and visible fields. Preview changes here before saving.</p></div>
+        <select id="board-theme-input" aria-label="Display theme" hidden></select>
+        <div class="theme-picker-toolbar"><h3>Layout</h3><button id="open-theme-picker" class="secondary-button" type="button" aria-haspopup="dialog" aria-expanded="false">Change layout</button></div>
+        <div class="theme-style-sample" id="theme-style-sample" role="group" aria-label="Selected layout preview"><span class="theme-sample-heading"><span id="theme-sample-name">Classic</span><span>Selected layout</span></span></div>
+        <p id="theme-description" class="theme-description"></p>
+        <p class="theme-sample-caption">Sample tournament with your colors and visible fields. Save changes to apply. Artwork is previewed under Images.</p>
+        <dialog id="theme-picker-dialog" aria-labelledby="theme-picker-title" aria-describedby="theme-picker-help">
+          <header class="theme-picker-header"><div><h2 id="theme-picker-title">Choose a Layout</h2><p id="theme-picker-help">Choose a layout, then Apply. Save settings to update your clock.</p></div><button id="close-theme-picker" class="secondary-button" type="button" aria-label="Close layout picker">×</button></header>
+        <section id="theme-gallery" aria-label="Display theme layouts"><div id="theme-options" class="theme-gallery" role="group" aria-label="All layouts"></div></section>
+          <footer class="theme-picker-footer"><button id="apply-theme-picker" class="save-button" type="button">Apply</button></footer>
+        </dialog>
+        <div class="theme-presets" id="color-presets" role="group" aria-label="Color presets"></div>
+        <div class="form-grid" id="custom-colors" hidden>
+          <label>Board color<span class="color-control"><input id="board-color-input" type="color"><input id="board-color-text" type="text" maxlength="7" aria-label="Board color hex value"></span></label>
+          <label>Accent color<span class="color-control"><input id="accent-color-input" type="color"><input id="accent-color-text" type="text" maxlength="7" aria-label="Accent color hex value"></span></label>
+        </div>
+        <details class="settings-disclosure artwork-options" data-wsop-only>
+          <summary>Images <span class="disclosure-value">Background &amp; Logo</span></summary>
+          <p id="artwork-status" role="status">PNG, JPG or WebP · Up to 10 MB</p>
+          <div class="artwork-upload-row"><label>Background<input id="background-upload" type="file" accept="image/png,image/jpeg,image/webp"></label><button id="remove-background" class="secondary-button" type="button">Delete</button></div>
+          <div class="artwork-upload-row"><label>Top-left logo (optional)<input id="logo-upload" type="file" accept="image/png,image/jpeg,image/webp"></label><button id="remove-logo" class="secondary-button" type="button">Delete</button></div>
+          <div id="image-library" hidden><div class="image-library-header"><h3>Saved Images</h3><button id="load-image-library" class="secondary-button" type="button">Browse</button></div><p id="image-library-status" role="status">Store up to 10 small images and reuse them across tournaments.</p><div id="image-library-grid"></div></div>
+          <div class="current-logo-preview" id="current-logo-preview" hidden><span>Current Logo</span><img id="logo-preview" alt="Logo preview" hidden></div>
+          <label>Layout<select id="art-preset"></select></label>
+          <div class="artwork-preview"><div id="artwork-preview" class="artwork-stage" aria-label="Background preview"><i></i><i></i><i></i></div><span>Preview</span></div>
+          <details class="settings-disclosure artwork-advanced">
+            <summary>Advanced Image Settings <span id="art-advanced-status" class="disclosure-value">Off</span></summary>
+            <label class="artwork-check"><input id="art-advanced" type="checkbox">Use advanced settings</label>
+            <fieldset id="art-advanced-controls" disabled aria-label="Advanced image controls">
+              <label>Background style<select id="background-art-input"></select></label>
+              <div class="form-grid">
+                <label for="art-opacity">Opacity <output id="art-opacity-value" for="art-opacity"></output><input id="art-opacity" aria-label="Background opacity" type="range" min="0" max="100"></label>
+                <label for="art-size">Image size <output id="art-size-value" for="art-size"></output><input id="art-size" aria-label="Background image size" type="range" min="10" max="150"></label>
+                <label>Horizontal position<input id="art-x" type="range" min="0" max="100"></label>
+                <label>Vertical position<input id="art-y" type="range" min="0" max="100"></label>
+              </div>
+              <label class="artwork-check"><input id="art-monochrome" type="checkbox">Monochrome watermark</label>
+              <div class="form-grid">
+                <label>Logo size<input id="art-logoSize" type="range" min="30" max="100"></label>
+                <label>Logo opacity<input id="art-logoOpacity" type="range" min="0" max="100"></label>
+              </div>
+            </fieldset>
+          </details>
+          <p class="artwork-note">Images are visible to anyone with the display link. Upload only images you have permission to use.</p>
+        </details>
+        <fieldset class="display-fields"><legend id="display-fields-legend">Optional Classic Fields</legend><div id="display-fields"></div></fieldset>
+        <div class="form-grid presentation-inputs" data-wsop-only>
+          <label class="span-2">Play-down message (optional)<input id="presentation-playDownText" data-presentation-input="playDownText" type="text" maxlength="90" placeholder="Play down to a winner"></label>
+        </div>
+        <div class="form-grid">
+          <label class="span-2" data-classic-only>Bottom banner text<input id="ticker-text-input" type="text" maxlength="180" placeholder="WELCOME POKER CHIP FORUM - GOOD LUCK!"></label>
+          <label data-classic-only>Show bottom banner<span class="switch-row"><input id="show-ticker-input" type="checkbox"><span>Scroll message right to left</span></span></label>
+        </div>
+      </section>
+    </div>
+
+    <footer class="drawer-footer">
+      <span id="save-status" role="status" aria-live="polite" hidden></span>
+      <button id="discard-draft" class="secondary-button" type="button">Discard changes</button>
+      <button class="save-button" id="save-close" type="button">Save + Close</button>
+    </footer>
+  </aside>
+
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="confirm-action" aria-labelledby="confirm-title" aria-describedby="confirm-message"><h2 id="confirm-title">Confirm Change</h2><p id="confirm-message"></p><div><button id="confirm-cancel" type="button" class="secondary-button">Cancel</button><button id="confirm-accept" type="button" class="save-button">Continue</button></div></dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

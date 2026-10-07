@@ -1,0 +1,72 @@
+/* Workspace chrome only. Classic and Modern board styles remain unchanged. */
+.director-actions {display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;padding:14px;border:1px solid #344047;border-radius:12px;background:#171e21;overflow:visible;min-width:0;}
+.control-group {display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0;}
+.control-group-title {flex-basis:100%;margin:0 0 3px;color:#aabbbd;font:600 10px/1.5 var(--font-controls);letter-spacing:.12em;text-transform:uppercase;}
+.director-actions .control-group+.control-group {border-left:1px solid #39474c;padding-left:18px;}
+.control-navigation {gap:6px;margin:0 0 10px;padding:0 0 10px;border-bottom:1px solid #2f3a3f;}
+.control-navigation #director-my-tournaments {margin-right:8px;}
+.control-navigation-tools {display:flex;align-items:center;gap:6px;min-width:0;}
+.navigation-label-compact {display:none;}
+.workspace-context {flex:1;color:#99abae;font:12px/1.4 var(--font-controls);}
+.new-tab-cue {font-size:14px;color:#c4d5cb;}
+.director-controls button,.director-controls a {display:inline-flex;align-items:center;justify-content:center;flex:none;gap:7px;min-height:44px;padding:10px 11px;border:1px solid #394143;border-radius:7px;background:#22282b;color:#e7ebec;font:500 13px/1.25 var(--font-controls);white-space:nowrap;text-decoration:none;cursor:pointer;box-shadow:none;transition:background .15s,border-color .15s,color .15s;}
+.control-navigation button,.control-navigation a {background:#182126;border-color:#35434a;color:#dce7e7;}
+.control-navigation #director-open-display {background:#24352b;border-color:#456351;color:#d4eddd;}
+.director-controls button:not(:disabled):hover,.director-controls a:hover {background:#30383c;border-color:#697678;color:#fff;}
+.director-controls button:not(:disabled):active,.director-controls a:active {background:#15191b;}
+.director-controls button:focus-visible,.director-controls a:focus-visible {outline:2px solid #c4e5cf;outline-offset:2px;}
+.director-controls button.primary-action {min-width:94px;background:#c4e5cf;border-color:#c4e5cf;color:#112319;}
+.director-controls button.primary-action:not(:disabled):hover {background:#def3e5;border-color:#def3e5;color:#112319;}
+.calculation-card small {color:#9aa9ae;}
+.settings-section-intro {margin:0 0 20px;}
+.settings-section-intro h2 {margin:0 0 7px;color:#e5efeb;font-size:19px;letter-spacing:-.025em;}
+.settings-section-intro p,.settings-section-note {margin:0;color:#adbcbe;font:13px/1.65 var(--font-controls);}
+.settings-section-note {margin:0 0 8px;}
+.creation-guide {margin:0 0 22px;padding:16px;border:1px solid #496351;border-radius:10px;background:#1c2d23;color:#daeddf;}
+.creation-guide strong {font:600 15px/1.4 var(--font-controls);}
+.creation-guide p {margin:8px 0 12px;color:#c0d4c6;font:13px/1.65 var(--font-controls);}
+/* On a wide control desk, status and navigation share a compact top row. */
+@media(min-width:1000px) {
+  .director-controls {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;}
+  .director-status {grid-column:1;grid-row:1;align-items:flex-start;justify-content:center;flex-direction:column;gap:2px;margin:0;}
+  .control-navigation {grid-column:2;grid-row:1;margin:0;padding:0;border-bottom:0;}
+  .workspace-context {display:none;}
+  .director-actions,#director-payout-warning,#time-editor,.controls-scroll-hint {grid-column:1/-1;}
+  .director-actions {padding:7px;}
+  .control-group-title {display:none;}
+}
+@media(max-width:720px) {
+  .director-controls button,.director-controls a {min-height:48px;}
+  .workspace-context {display:none;}
+  .control-navigation {gap:8px;}
+  .control-navigation #director-my-tournaments {margin-right:auto;}
+  .director-actions {gap:12px;padding:12px;}
+  .director-actions .control-group {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;}
+  .control-group-title {grid-column:1/-1;}
+  .director-actions .control-group+.control-group {padding-left:12px;}
+  .director-actions button {white-space:normal;min-width:0;padding-inline:8px;gap:5px;}
+}
+@media(max-width:560px) {
+  .director-actions {grid-template-columns:minmax(0,1fr);}
+  .director-actions .control-group+.control-group {padding:12px 0 0;border-left:0;border-top:1px solid #39474c;}
+  .control-navigation {display:grid;grid-template-columns:auto minmax(0,1fr);align-items:stretch;gap:6px;}
+  .control-navigation #director-my-tournaments {flex-basis:auto;justify-content:flex-start;margin:0;padding-inline:8px;}
+  .navigation-label-wide {display:none;}
+  .navigation-label-compact {display:inline;}
+  .control-navigation-tools {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;gap:6px;min-width:0;padding:2px;border:1px solid #35434a;border-radius:9px;background:#131a1e;}
+  .control-navigation-tools #director-settings,.control-navigation-tools #director-open-display {flex:1;min-width:0;min-height:48px;gap:4px;padding:6px 4px;font-size:12px;white-space:normal;text-align:center;}
+  .control-navigation-tools #director-open-display .new-tab-cue {display:none;}
+  .control-group .primary-action {min-width:0;}
+}
+@media(prefers-reduced-motion:reduce) {.director-controls button,.director-controls a {transition:none;}}
+
+/* Reserve the actual toolbar height on a wide director desk; displays stay full-size. */
+@media(min-width:1000px) and (min-height:500px) {
+  body.clock-shell:not(.readonly) #app {width:min(98vw,calc((100dvh - var(--director-reserve,200px))*1.58));height:min(calc(100dvh - var(--director-reserve,200px)),calc(98vw / 1.58));}
+  body.clock-shell:not(.readonly) #app[data-layout="wsop"] {width:min(98vw,calc((100dvh - var(--director-reserve,200px))*16/9));height:min(calc(100dvh - var(--director-reserve,200px)),calc(98vw*9/16));}
+}
+
+/* Image removal stays secondary to choosing a saved background or logo. */
+.image-library-card .image-delete { margin-top:4px; color:#ffb9b9; border-color:#865052; background:#211719; }
+.image-library-card .image-delete:hover:not(:disabled) { background:#392024; border-color:#cb8185; }
+.image-library-card .image-delete:focus-visible { outline:3px solid #ffcaca; outline-offset:2px; }

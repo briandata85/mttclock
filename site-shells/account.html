@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer"><title>MTTClock</title>
+  <link rel="stylesheet" href="/account.css">
+  <link rel="stylesheet" href="/surfaces.css">
+  <link rel="stylesheet" href="/account-interface.css">
+</head>
+<body class="account-shell">
+  <header class="account-header"><a href="/tournaments" class="brand"><span class="brand-mark" aria-hidden="true">♠</span> MTTClock</a><nav id="account-navigation" aria-label="Account navigation" hidden><a id="nav-tournaments" href="/tournaments">Tournaments</a><div class="account-style-options" role="group" aria-label="Interface style"><button type="button" data-interface-style="current" aria-pressed="true">Modern</button><button type="button" data-interface-style="forest" aria-pressed="false">Retro</button></div><a id="nav-account" href="/account" aria-label="Account" title="Account"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg></a></nav></header>
+  <main>
+    <p id="account-status" role="status" aria-live="polite">Connecting…</p>
+    <section id="account-unconfigured" class="card" hidden aria-labelledby="unconfigured-title">
+      <h1 id="unconfigured-title" tabindex="-1">Accounts are being prepared</h1>
+      <p>Online accounts are temporarily unavailable. Please try again later.</p>
+      <a class="action" href="/login">Return to sign in</a>
+    </section>
+    <section id="account-login" hidden>
+      <h1 id="auth-title" tabindex="-1">Welcome back</h1>
+      <p id="auth-intro">Sign in to save tournaments and control them from your PC or phone.</p>
+      <form id="auth-form" class="card">
+        <label id="email-label"><span id="identity-label">Username or existing email</span><input id="email" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="254" aria-describedby="username-hint account-status"></label><p id="username-hint" hidden>3–24 letters, numbers, or underscores. Start with a letter. Usernames aren’t case-sensitive.</p>
+        <label id="password-label">Password<span class="password-entry"><input id="password" type="password" autocomplete="current-password" required minlength="1" maxlength="128" aria-describedby="password-hint account-status"><button id="show-password" type="button" class="password-eye" aria-label="Show password" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m3 3 18 18"/></svg></button></span></label>
+        <p id="password-hint" hidden>Use at least 10 characters. Please use a password you don’t use elsewhere.</p>
+        <button id="auth-submit" type="submit">Sign in</button><p id="auth-countdown" hidden></p>
+        <div class="secondary-actions"><button id="auth-switch" type="button" class="text-button">Create an account</button><button id="auth-reset" type="button" class="text-button">Forgot password?</button></div>
+      </form>
+    </section>
+    <section id="account-dashboard" hidden>
+      <div class="title-row"><div><h1 id="dashboard-title" tabindex="-1">My Tournaments</h1><p id="account-email" hidden></p></div><button id="sign-out" hidden class="text-button">Sign out</button></div>
+      <p class="dashboard-intro">Create a tournament or continue a saved one.</p>
+      <form id="create-form" class="card create-form"><div class="create-heading"><h2>Start a New Tournament</h2><p>Set blinds, payouts, and display in Settings.</p></div><div class="create-fields"><label>New tournament<input id="tournament-name" required maxlength="70" placeholder="Friday night poker"></label><button id="create-tournament" type="submit" data-requires="idempotentCreate">Create Tournament</button><button id="cancel-create" type="button" class="text-button" hidden>Cancel retry</button></div></form>
+      <p id="create-capability-note" class="note" hidden>Creating tournaments needs the account service’s safe-retry update. Existing tournaments can still be opened. Nothing has been created.</p>
+      <div class="list-toolbar"><h2 id="list-heading" tabindex="-1">Saved Tournaments</h2><div class="actions"><button id="refresh-tournaments" type="button" class="text-button">Refresh</button><button id="show-trash" hidden type="button" class="secondary" data-requires="trash">Trash</button></div></div>
+      <p id="reuse-help" class="list-help"><strong>Running the same game again?</strong> Choose Use again to copy its saved setup with fresh players and clock.</p>
+      <p id="account-capability-note" class="note" hidden>Some tournament actions are temporarily unavailable while the service is updated.</p>
+      <p id="trash-help" hidden>Deleted tournaments stay here until you restore them. They cannot be opened or controlled while in Trash. Restoring brings back the saved tournament and its sharing links, with the clock paused.</p>
+      <div id="tournament-list" class="tournament-list" aria-label="Saved tournaments"></div>
+    </section>
+    <section id="account-settings" hidden aria-labelledby="settings-title">
+      <div class="title-row"><div><h1 id="settings-title" tabindex="-1">Your account</h1><p>Your sign-in, this device and saved tournament data.</p></div></div>
+      <section class="card"><h2>Account details</h2><p id="settings-email"></p><div class="account-device"><div><h3>This device</h3><p>Your signed-in session stays in this browser until you sign out. Use a device you trust.</p></div><button id="settings-sign-out" type="button" class="secondary account-signout">Sign out on this device</button></div></section>
+      <section class="card" aria-labelledby="security-title"><h2 id="security-title">Sign-in and recovery</h2>
+      <form id="username-form" hidden><h3>Choose a username</h3><p>Your existing password and tournaments stay the same. After saving, sign in with this username.</p><label>Username<input id="account-username" autocomplete="username" minlength="3" maxlength="24" required pattern="[A-Za-z][A-Za-z0-9_]{2,23}" autocapitalize="none" spellcheck="false"></label><label>Current password<input id="account-current-password" type="password" autocomplete="current-password" required maxlength="128"></label><button type="submit">Save Username</button></form>
+      <form id="recovery-code-form"><h3>Recovery code</h3><p id="recovery-note">A recovery code lets you reset your password without email. Creating a new code replaces your previous one.</p><label>Current password<input id="recovery-current-password" type="password" autocomplete="current-password" required maxlength="128"></label><button type="submit">Create New Recovery Code</button></form>
+      </section>
+      <section class="card" aria-labelledby="data-title"><h2 id="data-title">Delete account</h2><p id="data-unavailable">Permanently remove your account, all saved tournaments, and uploaded images. This cannot be undone.</p><button id="delete-account" type="button" class="danger">Delete Account</button></section>
+    </section>
+
+  </main>
+  <dialog id="delete-account-dialog" aria-labelledby="delete-account-title" aria-describedby="delete-account-warning"><form id="delete-account-form"><h2 id="delete-account-title">Permanently delete your account?</h2><p id="delete-account-warning">Your tournaments, uploaded images, and login will be permanently removed. Display links will stop working. This cannot be undone.</p><label>Current password<input id="delete-account-password" type="password" autocomplete="current-password" required maxlength="128"></label><label>Type DELETE to confirm<input id="delete-account-confirmation" autocomplete="off" spellcheck="false" required pattern="DELETE"></label><p id="delete-account-error" role="alert"></p><div class="actions"><button id="delete-account-cancel" type="button" class="secondary">Keep Account</button><button id="delete-account-submit" type="submit" class="danger">Permanently Delete Account</button></div></form></dialog>
+  <dialog id="backup-dialog" aria-labelledby="backup-title"><h2 id="backup-title">Save your recovery code</h2><p>This code can reset your password once. Keep it in your password manager or another safe place. We won’t email it to you.</p><label>Recovery code<textarea id="backup-code" readonly rows="3" autocomplete="off" spellcheck="false"></textarea></label><p>If you lose both your password and this code, you cannot recover your account.</p><div class="actions"><button id="backup-copy" type="button" class="secondary">Copy Code</button><button id="backup-done" type="button">I Saved My Code</button></div></dialog>
+  <dialog id="tournament-dialog" aria-labelledby="tournament-dialog-title" aria-describedby="tournament-dialog-description">
+    <form id="tournament-dialog-form">
+      <h2 id="tournament-dialog-title"></h2><p id="tournament-dialog-description"></p>
+      <div id="reuse-details"><p><strong>Keep:</strong> blind/break structure, registration cutoff, buy-in and contribution, per-entry bounty, payout calculator choices, appearance, sound and display settings.</p><p><strong>Start fresh:</strong> entrants, players left, clock, payout amounts and manual stack counts. Any fixed total bounty pool resets to zero; enter the new night’s total. New sharing URLs are separate from the original.</p></div>
+      <label id="reuse-name-label">New tournament name<input id="reuse-name" maxlength="70" autocomplete="off"></label>
+      <p id="tournament-dialog-error" role="alert"></p>
+      <div class="actions"><button id="tournament-dialog-cancel" type="button" class="secondary">Cancel</button><button id="tournament-dialog-submit" type="submit">Continue</button></div>
+    </form>
+  </dialog>
+  <script type="module" src="/interface-style.js"></script>
+  <script type="module" src="/account.js"></script>
+</body>
+</html>

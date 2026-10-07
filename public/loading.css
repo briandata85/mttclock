@@ -1,0 +1,17 @@
+/* A quiet, branded connection state with an honest failure state. */
+.clock-shell .access-card{width:min(420px,calc(100% - 32px));max-width:420px;margin:clamp(32px,16vh,160px) auto;padding:0;overflow:hidden;border:1px solid #42544b;border-radius:20px;background:linear-gradient(145deg,#1c2b23,#101916);color:#edf5ee;box-shadow:0 24px 70px #0005;font:14px/1.55 var(--font-controls);}
+.access-window-bar{display:flex;justify-content:space-between;padding:11px 22px;border-bottom:1px solid #ffffff12;background:#ffffff04;color:#9fb4a6;font-size:10px;font-weight:700;letter-spacing:.18em;}
+.access-content{padding:28px;}.access-brand{display:flex;gap:14px;align-items:center;}.access-mark{display:grid;place-items:center;flex:none;width:50px;height:50px;border:1px solid #9db9a354;border-radius:14px;background:linear-gradient(145deg,#d1e3cd,#99ba9f);color:#173d29;font:34px/1 Georgia,serif;box-shadow:inset 0 1px #fff9,0 6px 16px #0003;}
+.access-brand h1{margin:0;font-size:28px;line-height:1.2;letter-spacing:-.045em;color:inherit;}.access-caption{display:block;margin-top:4px;color:#a7baac;font-size:12px;}
+.access-card #access-message{margin:26px 0 14px;color:#d6e2d8;min-height:1.6em;overflow-wrap:anywhere;}.access-progress{height:3px;border-radius:9px;overflow:hidden;background:#9ab69f26;}.access-progress span{display:block;width:36%;height:100%;border-radius:inherit;background:#a7d3b5;animation:access-sweep 1.8s ease-in-out infinite;}.access-links{display:flex;justify-content:space-between;gap:16px;margin-top:24px;padding-top:16px;border-top:1px solid #ffffff12;}.access-links a{display:inline-flex;align-items:center;min-height:36px;font-size:12px;text-decoration:none;color:#a7baac;}.access-links a:hover{color:#fff;text-decoration:underline;}.access-links a:focus-visible{outline:2px solid #add0b8;outline-offset:4px;border-radius:3px;}
+.access-card[aria-busy="false"] .access-progress{display:none;}.access-card[aria-busy="false"] #access-message{color:#f1d9ba;}
+html[data-interface-style="forest"] .clock-shell .access-card{border:2px solid #315640;border-radius:9px;background:#f7f3df;color:#203e2b;box-shadow:5px 6px 0 #78927c;font-family:'Courier New',monospace;}
+html[data-interface-style="forest"] .access-window-bar{background:#204c35;color:#e9f0d6;border-color:#315640;}
+html[data-interface-style="forest"] .access-mark{border:2px solid #315640;border-radius:6px;background:#c9dfbc;box-shadow:2px 3px 0 #8ba17c;}
+html[data-interface-style="forest"] .access-brand h1{font-family:inherit;}
+html[data-interface-style="forest"] .access-card :is(.access-caption,#access-message,.access-links a){color:#4b644d;}
+html[data-interface-style="forest"] .access-links{border-color:#b8c1a6;}
+html[data-interface-style="forest"] .access-progress{background:#d5ddc6;}html[data-interface-style="forest"] .access-progress span{background:#315c3e;}
+@keyframes access-sweep{0%{transform:translateX(-105%)}100%{transform:translateX(380%)}}
+@media(prefers-reduced-motion:reduce){.access-progress span{animation:none;width:100%;opacity:.55;}}
+@media(max-width:420px){.access-content{padding:22px;}.access-brand h1{font-size:25px;}}

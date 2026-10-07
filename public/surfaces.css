@@ -1,0 +1,99 @@
+/* Shared interface surfaces. No tournament-board layout or typography changes. */
+:root {
+  --ui-edge:rgba(154,196,175,.23);
+  --ui-edge-bright:rgba(179,220,197,.42);
+  --ui-light:rgba(233,255,242,.075);
+  --ui-shadow:0 16px 36px rgba(0,0,0,.23),inset 0 1px 0 var(--ui-light);
+  --ui-primary:linear-gradient(155deg,#def1e5 0%,#b6ddc5 52%,#91bea5 100%);
+  --ui-primary-hover:linear-gradient(155deg,#effbf3 0%,#ccebd8 52%,#a9d5ba 100%);
+  --ui-panel:linear-gradient(145deg,#1b2a26 0%,#15201f 55%,#111b1f 100%);
+}
+body.account-shell {
+  min-height:100dvh;
+  background:radial-gradient(ellipse 75% 540px at 8% 0%,rgba(45,106,72,.22),transparent 75%),radial-gradient(ellipse 55% 700px at 100% 35%,rgba(32,73,89,.17),transparent 78%),linear-gradient(160deg,#0d1714,#0b1115 70%);
+}
+body.clock-shell:not(.readonly) {background:radial-gradient(ellipse 70% 500px at 50% 100%,rgba(39,78,59,.24),transparent 75%),#080d10;}
+
+/* Account navigation reads as a raised rail, with a distinct selected page. */
+.account-shell .account-header {background:linear-gradient(120deg,rgba(30,55,42,.38),rgba(16,28,30,.65));border-color:var(--ui-edge);box-shadow:0 12px 32px rgba(0,0,0,.14),inset 0 -1px 0 rgba(255,255,255,.025);border-radius:0 0 18px 18px;}
+.account-shell .brand-mark {background:linear-gradient(145deg,#355a43,#172c22);border-color:#597e65;box-shadow:0 5px 14px #0004,inset 0 1px 0 #eaffef26;}
+.account-shell #account-navigation {padding:4px;border:1px solid var(--ui-edge);border-radius:13px;background:linear-gradient(180deg,#0b1713,#14211b);box-shadow:inset 0 2px 6px #0005,0 1px 0 #ffffff08;}
+.account-shell #account-navigation a {border-radius:9px;transition:background .16s,box-shadow .16s,color .16s;}
+.account-shell #account-navigation a[aria-current="page"] {background:var(--ui-primary);color:#0e2719;box-shadow:0 4px 12px #0004,inset 0 1px 0 #ffffff70;font-weight:650;}
+.account-shell #account-navigation a:not([aria-current="page"]):hover {background:linear-gradient(160deg,#243c2e,#192b23);color:#edf8f1;}
+.account-shell h1 {color:#f0f7f3;text-shadow:0 4px 22px rgba(0,0,0,.22);}
+.account-shell .eyebrow {color:#aec8b8;}
+.account-shell .card,.account-shell .tournament-card {background:radial-gradient(ellipse at 100% 0%,rgba(83,130,111,.095),transparent 65%),var(--ui-panel);border-color:var(--ui-edge);box-shadow:var(--ui-shadow);}
+.account-shell .create-form {background:radial-gradient(ellipse at 0% 0%,rgba(96,172,120,.13),transparent 68%),linear-gradient(125deg,#20382a,#152421 60%,#142029);border-color:var(--ui-edge-bright);}
+.account-shell .tournament-card:focus-within {border-color:#789c87;box-shadow:0 16px 36px #0004,inset 0 1px 0 #e8fff014;}
+.account-shell .saved-progress {padding:14px 12px;border:1px solid rgba(126,169,147,.16);border-radius:9px;background:linear-gradient(160deg,#0c1915,#13221e);box-shadow:inset 0 2px 5px #0003,0 1px 0 #ffffff05;}
+.account-shell .saved-badge,.account-shell .availability-note {background:linear-gradient(160deg,#263c30,#182820);box-shadow:inset 0 1px 0 #ffffff09;}
+.account-shell .unavailable-section {background:linear-gradient(150deg,#182421,#111b1d);box-shadow:inset 0 1px 0 #ffffff05;}
+.account-shell .empty-state {background:linear-gradient(145deg,rgba(35,61,47,.4),rgba(17,29,27,.5));}
+.account-shell #account-status {background:linear-gradient(140deg,#254334,#182f24);box-shadow:0 8px 22px #0003,inset 0 1px 0 #e5ffee0d;}
+.account-shell input {background:linear-gradient(180deg,#0c1714,#101e18);box-shadow:inset 0 2px 5px #0004;}
+.account-shell button:not(.secondary):not(.text-button):not(.danger):not(:disabled),.account-shell .action:not(.secondary):not(.danger) {background:var(--ui-primary);color:#10281b;border-color:#b0d4bd;box-shadow:0 5px 13px #0003,inset 0 1px 0 #ffffff66;}
+.account-shell button:not(.secondary):not(.text-button):not(.danger):not(:disabled):hover,.account-shell .action:not(.secondary):not(.danger):hover {background:var(--ui-primary-hover);}
+.account-shell .secondary:not(.danger),.account-shell .action.secondary:not(.danger) {background:linear-gradient(160deg,#2a3a34,#1a2825);border-color:#42594d;box-shadow:0 3px 8px #0002,inset 0 1px 0 #ffffff09;}
+.account-shell .secondary:not(.danger):not(:disabled):hover,.account-shell .action.secondary:not(.danger):hover {background:linear-gradient(160deg,#365044,#23382f);border-color:#6f9580;}
+.account-shell dialog {background:radial-gradient(ellipse at 0% 0%,#31503a33,transparent 65%),linear-gradient(145deg,#1a2a22,#101b1b);border-color:#607d69;box-shadow:0 28px 80px #0009,inset 0 1px 0 #eaffed14;}
+
+/* The current tournament supplies the accent; surfaces stay neutral black. */
+.clock-shell {--ui-accent:var(--board,#555);--ui-highlight:color-mix(in srgb,var(--ui-accent) 50%,white);--ui-edge:#393939;--ui-panel:linear-gradient(145deg,#202020,#131313);--ui-primary:linear-gradient(155deg,color-mix(in srgb,var(--ui-accent) 30%,white),color-mix(in srgb,var(--ui-accent) 40%,white));--ui-primary-hover:linear-gradient(155deg,color-mix(in srgb,var(--ui-accent) 20%,white),color-mix(in srgb,var(--ui-accent) 30%,white));}
+body.clock-shell:not(.readonly) {background:#080808;}
+.clock-shell .director-controls {display:flex;flex-direction:column;gap:8px;}
+.clock-shell .director-status {display:flex;flex-direction:row;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:4px 12px;margin:0;padding:0 3px;font-size:12px;line-height:1.4;color:#bdbdbd;}
+.clock-shell #director-payout-warning:not([hidden]) {display:inline;margin:0;padding:0;color:#ead29a;font:inherit;}
+.clock-shell #director-payout-warning::before {content:'·';margin-right:10px;color:#777;}
+.clock-shell #director-payout-warning-text {overflow-wrap:anywhere;}
+.clock-shell .director-status > [hidden],.clock-shell #save-status[hidden] {display:none!important;}
+.clock-shell .director-toolbar {padding:8px;border:1px solid #393939;border-radius:12px;background:linear-gradient(155deg,#232323,#121212);box-shadow:0 8px 24px #0005,inset 0 1px 0 #ffffff0c;min-width:0;}
+.clock-shell .control-navigation {display:flex;gap:6px;margin:0 0 8px;padding:0 0 8px;border-bottom:1px solid #343434;}
+.clock-shell .control-navigation #director-my-tournaments {margin:0;}
+.clock-shell .control-navigation-tools {display:contents;}
+.clock-shell .director-actions {padding:0;border:0;border-radius:0;background:none;box-shadow:none;gap:12px;}
+.clock-shell .director-actions .control-group+.control-group {border-color:#383838;padding-left:12px;}
+.clock-shell .director-controls button,.clock-shell .director-controls a,.clock-shell .control-navigation #director-open-display {min-height:48px;background:linear-gradient(160deg,#303030,#202020);border-color:#484848;color:#ededed;box-shadow:0 2px 5px #0003,inset 0 1px 0 #ffffff0b;}
+.clock-shell .control-navigation a,.clock-shell .control-navigation button {min-height:48px;}
+.clock-shell .director-controls button:not(:disabled):hover,.clock-shell .director-controls a:hover {background:linear-gradient(160deg,#3a3a3a,#292929);border-color:var(--ui-highlight);color:#fff;}
+.clock-shell .director-controls button:focus-visible,.clock-shell .director-controls a:focus-visible {outline-color:var(--ui-highlight);}
+.clock-shell .director-controls button.primary-action {background:var(--ui-primary);color:#111;border-color:var(--ui-highlight);}
+.clock-shell .director-controls button.primary-action:not(:disabled):hover {background:var(--ui-primary-hover);color:#111;}
+.clock-shell .new-tab-cue {color:inherit;}
+.clock-shell .time-editor {background:#171717;border-color:#444;box-shadow:0 8px 24px #0005;}
+.clock-shell .setup-drawer {--ui-highlight:color-mix(in srgb,var(--ui-accent) 50%,white);--ui-primary:linear-gradient(155deg,color-mix(in srgb,var(--ui-accent) 30%,white),color-mix(in srgb,var(--ui-accent) 40%,white));--ui-primary-hover:linear-gradient(155deg,color-mix(in srgb,var(--ui-accent) 20%,white),color-mix(in srgb,var(--ui-accent) 30%,white));background:linear-gradient(155deg,#1b1b1b,#101010);box-shadow:-24px 0 70px #0009,inset 1px 0 0 #ffffff0c;}
+.clock-shell .drawer-header {background:linear-gradient(180deg,#232323,#181818);}
+.clock-shell .settings-live-context {background:linear-gradient(160deg,#111,#1a1a1a);border-color:#454545;color:#ddd;box-shadow:inset 0 2px 5px #0003;}
+.clock-shell .settings-live-label,.clock-shell #settings-live-status {color:#bcbcbc;}
+.clock-shell .setup-tabs {background:linear-gradient(180deg,#191919,#101010);border-bottom-color:#353535;box-shadow:0 5px 12px #0003;}
+.clock-shell .setup-tabs button {border-radius:8px;color:#bbb;}
+.clock-shell .setup-tabs button:hover {background:#292929;color:#fff;}
+.clock-shell .setup-tabs button.active {background:linear-gradient(150deg,color-mix(in srgb,var(--ui-accent) 16%,#242424),#202020);color:#fff;box-shadow:0 3px 8px #0003,inset 0 1px 0 #ffffff13;}
+.clock-shell .setup-tabs button.active::after {background:var(--ui-highlight);box-shadow:none;}
+.clock-shell .drawer-footer {background:linear-gradient(160deg,#242424,#141414);border-color:#3c3c3c;box-shadow:0 -6px 20px #0003;}
+.clock-shell .setup-drawer .secondary-button,.clock-shell .setup-drawer .icon-button {background:linear-gradient(160deg,#303030,#202020);border-color:#4b4b4b;color:#eee;}
+.clock-shell .setup-drawer .save-button:not(:disabled) {background:var(--ui-primary);color:#111;border-color:var(--ui-highlight);box-shadow:0 4px 12px #0004;}
+.clock-shell .setup-drawer .save-button:not(:disabled):hover {background:var(--ui-primary-hover);}
+.clock-shell .setup-drawer input:not([type="checkbox"]):not([type="range"]):not([type="color"]):not([type="file"]),.clock-shell .setup-drawer select {background-color:#111;border-color:#424242;box-shadow:inset 0 2px 4px #0003;color:#eee;}
+.clock-shell .setup-drawer input:focus-visible,.clock-shell .setup-drawer select:focus-visible,.clock-shell .setup-drawer button:focus-visible {outline-color:var(--ui-highlight);}
+.clock-shell .payout-calculator,.clock-shell #image-library,.clock-shell .creation-guide {background:linear-gradient(150deg,#232323,#151515);border-color:#424242;box-shadow:0 8px 20px #0002;}
+.clock-shell .settings-disclosure {border-color:#3c3c3c;}
+.clock-shell .settings-disclosure[open] {background:linear-gradient(180deg,#ffffff04,transparent);}
+.clock-shell #theme-style-sample {border-color:#555;box-shadow:0 12px 28px #0004;}
+.clock-shell #theme-picker-dialog {background:linear-gradient(150deg,#202020,#101010);border-color:#555;box-shadow:0 30px 90px #000b;}
+.clock-shell .theme-picker-header,.clock-shell .theme-picker-footer {background:linear-gradient(145deg,#292929,#181818);border-color:#444;}
+.clock-shell .theme-gallery .theme-choice {background:linear-gradient(150deg,#2b2b2b,#181818);border-color:#505050;box-shadow:0 5px 14px #0003;}
+.clock-shell .theme-gallery .theme-choice:hover {background:#303030;border-color:var(--ui-highlight);}
+.clock-shell .theme-gallery .theme-choice[aria-pressed="true"] {background:linear-gradient(150deg,color-mix(in srgb,var(--ui-accent) 16%,#292929),#202020);border-color:var(--ui-highlight);box-shadow:inset 0 0 0 1px var(--ui-highlight),0 5px 14px #0004;}
+.clock-shell .theme-choice-status,.clock-shell .theme-choice-reason,.clock-shell .theme-picker-header p {color:#c5c5c5;}
+.clock-shell .theme-choice[aria-pressed="true"] .theme-choice-status {color:#eee;}
+#theme-options {padding:16px 0 0;}
+@media(max-width:560px) {
+  .clock-shell .control-navigation {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+  .clock-shell .control-navigation a,.clock-shell .control-navigation button,.clock-shell .control-navigation #director-my-tournaments,.clock-shell .control-navigation-tools #director-settings,.clock-shell .control-navigation-tools #director-open-display {justify-content:center;min-width:0;min-height:48px;padding:7px 4px;gap:4px;font-size:12px;white-space:normal;}
+  .clock-shell .director-actions .control-group+.control-group {padding:12px 0 0;}
+  .clock-shell #director-payout-warning::before {margin-right:5px;}
+}
+@media(prefers-reduced-motion:reduce) {.account-shell #account-navigation a,.clock-shell .setup-tabs button {transition:none;}}
+
+.clock-shell .setup-drawer .eyebrow {color:var(--ui-highlight);}

@@ -1,0 +1,203 @@
+/* Interface skins are deliberately scoped away from #app and board previews. */
+/* Kept beside navigation, rather than buried in tournament settings. */
+.clock-shell .control-navigation .interface-style-options{display:flex;gap:0;margin-left:auto;padding:3px;border:1px solid #5d625f;border-radius:9px;background:#141817;flex:none;}
+.clock-shell .control-navigation .interface-style-options button{min-width:76px;min-height:42px;padding:8px 12px;border:1px solid transparent;border-radius:6px;background:transparent;color:#bcc5bf;box-shadow:none;font:600 13px/1.2 var(--font-controls);}
+.clock-shell .control-navigation .interface-style-options button[aria-pressed="true"]{color:#14231a;background:#e3eadd;border-color:#b5c4b6;box-shadow:0 1px 3px #0004;}
+#interface-style-status.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+html[data-interface-style="forest"] .clock-shell,html[data-interface-style="forest"] .clock-shell .setup-drawer,html[data-interface-style="forest"] .clock-shell #confirm-action{--forest-ink:color-mix(in srgb,var(--ui-accent,#063b1d) 25%,#202020);--forest-muted:#5d605a;--forest-cream:#f5f0dc;--forest-paper:#fffbeb;--forest-mint:color-mix(in srgb,var(--ui-accent,#063b1d) 22%,#ffffff);--forest-edge:color-mix(in srgb,var(--ui-accent,#063b1d) 40%,#303030);--forest-shadow:color-mix(in srgb,var(--ui-accent,#063b1d) 28%,#b1b0a3);--forest-title:'Courier New','Liberation Mono',Courier,monospace;--retro-header:color-mix(in srgb,var(--ui-accent,#063b1d) 35%,#171717);--retro-focus:color-mix(in srgb,var(--ui-accent,#063b1d) 50%,#202020);--retro-soft:color-mix(in srgb,var(--ui-accent,#063b1d) 12%,#fffbeb);}
+html[data-interface-style="forest"] .clock-shell:not(.readonly) .setup-drawer{color:var(--forest-ink);background:var(--forest-cream);border-left:3px solid var(--forest-edge);box-shadow:-12px 0 40px #0007;--ui-highlight:var(--retro-focus);--accent:var(--retro-focus);color-scheme:light;}
+html[data-interface-style="forest"] .clock-shell .drawer-header{background:linear-gradient(120deg,var(--retro-header),var(--retro-header));border-bottom:2px solid var(--forest-edge);color:var(--forest-paper);box-shadow:inset 0 1px 0 #b5f1ce44;}
+html[data-interface-style="forest"] .clock-shell .drawer-header h1{font-family:var(--forest-title);font-size:29px;letter-spacing:.01em;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer .eyebrow{color:var(--forest-cream);letter-spacing:.12em;}
+html[data-interface-style="forest"] .clock-shell .settings-live-context{background:var(--forest-paper);border:2px solid var(--forest-edge);color:var(--forest-ink);box-shadow:2px 2px 0 var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell :is(.settings-live-label,#settings-live-status,#settings-live-timer){color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .setup-tabs{background:var(--retro-header);border-bottom:2px solid var(--forest-edge);padding:10px 10px 0;gap:3px;}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button{min-height:48px;padding:11px 4px;color:var(--forest-ink);background:linear-gradient(#fffbeb,#e9e2c8);border:2px solid var(--forest-edge);border-bottom:0;border-radius:10px 14px 0 0;font:700 13px/1.2 var(--forest-title);box-shadow:inset 0 2px 0 #fff9;}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button.active{background:linear-gradient(var(--forest-mint),var(--forest-mint));color:var(--forest-ink);box-shadow:inset 0 3px 0 #e4ffec;}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button.active::after{height:3px;left:8px;right:8px;bottom:0;background:var(--retro-focus);}
+html[data-interface-style="forest"] .clock-shell .drawer-scroll{background:var(--forest-cream);scrollbar-color:var(--forest-shadow) #e1dcc4;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(h2,h3,legend){font-family:var(--forest-title);color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .settings-section-intro h2{font-size:24px;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(label,summary,.section-title,.switch-row,.payout-row span){color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(p,small,.muted,.settings-section-note,.disclosure-value,.tournament-totals,.calculation-card span,.payout-summary span,.sound-controls output,#calculator-status,.large-payout-preview>div,.theme-description,.theme-sample-caption){color:var(--forest-muted);}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(.tournament-totals dd,.tournament-totals .pool-total,.large-payout-preview strong,.calculator-totals dd,.calculator-totals dt){color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .setup-drawer input:not([type="checkbox"]):not([type="range"]):not([type="color"]):not([type="file"]),html[data-interface-style="forest"] .clock-shell .setup-drawer select,html[data-interface-style="forest"] .clock-shell .time-editor input{background:var(--forest-paper);border:2px solid var(--forest-edge);border-radius:6px;color:var(--forest-ink);box-shadow:inset 0 2px 3px #26473013;min-height:44px;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(input,select)::placeholder{color:#6b7468;opacity:1;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(input[type="checkbox"],input[type="range"]){accent-color:var(--retro-focus);}
+html[data-interface-style="forest"] .clock-shell .setup-drawer input[type="color"]{background:var(--forest-paper);border-color:var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer button:not(:where(.theme-choice,.color-preset)),.share-actions a,.director-controls button,.director-controls a,:where(#confirm-action) button){background:linear-gradient(#fffbea,#eee5ca);border:2px solid var(--forest-edge);color:var(--forest-ink);border-radius:7px;box-shadow:2px 3px 0 var(--forest-shadow),inset 0 1px 0 #fff;min-height:44px;font-weight:650;}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer button:not(:where(.theme-choice,.color-preset)),.share-actions a,.director-controls button,.director-controls a,:where(#confirm-action) button):hover:not(:disabled){background:var(--forest-mint);border-color:var(--retro-focus);color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer button,.director-controls button,.director-controls a,:where(#confirm-action) button):active:not(:disabled){box-shadow:1px 1px 0 var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button{border-bottom:0;border-radius:10px 14px 0 0;box-shadow:inset 0 2px 0 #fff9;}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button.active{background:linear-gradient(var(--forest-mint),var(--forest-mint));}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer .save-button:not(:disabled),.director-controls button.primary-action,#confirm-action .save-button){background:linear-gradient(var(--forest-mint),var(--forest-mint));color:var(--forest-ink);border:2px solid var(--forest-edge);box-shadow:2px 3px 0 var(--forest-shadow),inset 0 1px 0 #ffffff;}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer .save-button:not(:disabled),.director-controls button.primary-action):hover{background:var(--forest-mint);color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer button,.setup-drawer input,.setup-drawer select,.director-controls button):disabled{opacity:.55;cursor:not-allowed;box-shadow:none;}
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer,.director-controls,#confirm-action) :is(button,a,input,select,summary):focus-visible{outline:3px solid var(--retro-focus);outline-offset:3px;}
+html[data-interface-style="forest"] .clock-shell .drawer-footer{background:linear-gradient(#faf6e5,#eae3ca);border-top:2px solid var(--forest-edge);box-shadow:0 -3px 0 #d6ceb4;}
+html[data-interface-style="forest"] .clock-shell :is(.payout-calculator,:where(#image-library),.creation-guide,.calculation-card,.payout-summary>div,.interface-style-picker){background:linear-gradient(140deg,var(--retro-soft),var(--retro-soft));border:2px solid var(--forest-shadow);border-radius:9px;box-shadow:2px 3px 0 #c4c9af;color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .payout-calculator{background:var(--forest-paper);border-color:var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell .calculator-totals{padding:14px;background:var(--forest-mint);border:1px solid var(--forest-shadow);border-radius:6px;}
+html[data-interface-style="forest"] .clock-shell .calculator-totals dd{font:700 28px/1.2 var(--forest-title);}
+html[data-interface-style="forest"] .clock-shell :is(.calculator-options,.settings-disclosure,.large-payout-preview>div+div){border-color:#b2baa0;}
+html[data-interface-style="forest"] .clock-shell .settings-disclosure[open]{background:#fff9;}
+html[data-interface-style="forest"] .clock-shell .settings-disclosure summary::after{border-color:var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell .payout-row{padding:8px 0;border-bottom:1px solid #c6c9b2;}
+html[data-interface-style="forest"] .clock-shell :is(.levels-table th,.levels-table td){border-color:#c6c9b2;color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .levels-table th{background:var(--retro-soft);}
+html[data-interface-style="forest"] .clock-shell :is(.settings-validation,.draft-notice,.settings-error,#calculator-status.invalid){background:#fff0ce;color:#6e360d;border-color:#9e6921;}
+html[data-interface-style="forest"] .clock-shell .image-library-card .image-delete{color:#792b23;border-color:#935c4c;background:#fae7d7;}
+html[data-interface-style="forest"] .clock-shell :is(.director-toolbar,.time-editor){background:linear-gradient(125deg,#f8f2dc,#e6e0c7);border:2px solid var(--forest-edge);box-shadow:3px 4px 0 var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell :is(.director-controls button,.director-controls a,.control-navigation :where(#director-open-display)){min-height:48px;font-family:var(--forest-title);background:linear-gradient(#fffbea,#eee5ca);border:2px solid var(--forest-edge);color:var(--forest-ink);box-shadow:2px 3px 0 var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell :is(.control-navigation,.director-actions .control-group+.control-group){border-color:#afbaa0;}
+html[data-interface-style="forest"] .clock-shell :is(.control-group-title,.time-editor label,.new-tab-cue){color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .director-status{color:var(--forest-cream);}
+html[data-interface-style="forest"] .clock-shell #theme-picker-dialog,html[data-interface-style="forest"] .clock-shell #confirm-action{background:var(--forest-cream);border:2px solid var(--forest-edge);color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell :is(.theme-picker-header,.theme-picker-footer){background:var(--retro-header);border-color:var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell .theme-picker-header :is(h2,p){color:#f5f0dc;}
+html[data-interface-style="forest"] .clock-shell .theme-gallery .theme-choice{background:var(--forest-paper);border:2px solid #78937b;color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .theme-gallery .theme-choice[aria-pressed="true"]{background:var(--forest-mint);border-color:var(--retro-focus);box-shadow:0 0 0 1px var(--retro-focus);}
+html[data-interface-style="forest"] .clock-shell :is(.theme-choice-status,.theme-choice-reason){color:var(--forest-muted);}
+html[data-interface-style="forest"] .clock-shell #theme-style-sample{border:2px solid var(--forest-edge);background:var(--forest-paper);color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell .theme-sample-heading>:last-child{color:#506357;}
+html[data-interface-style="forest"] .clock-shell .interface-style-options button[aria-pressed="true"]{background:var(--forest-mint);border-color:var(--retro-focus);box-shadow:inset 0 0 0 1px var(--retro-focus),2px 3px 0 var(--forest-shadow);}
+@media(max-width:560px){html[data-interface-style="forest"] .clock-shell .setup-tabs{padding:8px 8px 4px;gap:4px;}html[data-interface-style="forest"] .clock-shell .setup-tabs button{font-size:13px;min-height:44px;border-bottom:2px solid var(--forest-edge);border-radius:7px;}html[data-interface-style="forest"] .clock-shell .drawer-header{padding:16px;}html[data-interface-style="forest"] .clock-shell .drawer-header h1{font-size:25px;}html[data-interface-style="forest"] .clock-shell .director-controls{padding-inline:10px;}}
+@media(forced-colors:active){.interface-style-options button[aria-pressed="true"]{outline:3px solid Highlight;}html[data-interface-style="forest"] .clock-shell .setup-tabs button.active{outline:3px solid Highlight;outline-offset:-4px;}}
+
+html[data-interface-style="forest"] .clock-shell .control-navigation #director-open-display{background:linear-gradient(#fffbea,#eee5ca);border:2px solid var(--forest-edge);color:var(--forest-ink);}
+html[data-interface-style="forest"] .clock-shell #director-controls button.primary-action{background:linear-gradient(var(--forest-mint),var(--forest-mint));color:var(--forest-ink);border:2px solid var(--forest-edge);box-shadow:2px 3px 0 var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell #director-controls button.primary-action:hover:not(:disabled){background:var(--forest-mint);}
+
+/* Bold typewriter/slab character from the desktop concept, without changing TV fonts. */
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(label,summary,.save-button,.secondary-button,.theme-picker-toolbar button){font-family:var(--forest-title);font-weight:700;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer :is(input[type="text"],input[type="number"],select){font-family:var(--forest-title);font-weight:600;}
+html[data-interface-style="forest"] .clock-shell .setup-drawer h2{letter-spacing:-.04em;}
+html[data-interface-style="forest"] .clock-shell .control-navigation .interface-style-options{background:var(--forest-paper);border:2px solid var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell .control-navigation .interface-style-options button{min-height:40px;min-width:76px;background:transparent;color:var(--forest-ink);border:1px solid transparent;box-shadow:none;font-family:var(--forest-title);font-weight:700;}
+html[data-interface-style="forest"] .clock-shell .control-navigation .interface-style-options button[aria-pressed="true"]{background:var(--forest-mint);border-color:var(--forest-edge);box-shadow:1px 1px 0 var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell .control-navigation .interface-style-options button:focus-visible{outline:3px solid var(--retro-focus);outline-offset:2px;}
+@media(max-width:720px){.clock-shell .control-navigation{flex-wrap:wrap;}.clock-shell .control-navigation .interface-style-options{margin-left:auto;}.clock-shell .control-navigation .interface-style-options button{min-height:44px;}}
+@media(max-width:560px){.clock-shell .control-navigation .interface-style-options{grid-column:1/-1;justify-self:end;margin-top:2px;}.clock-shell .control-navigation .interface-style-options button,html[data-interface-style="forest"] .clock-shell .control-navigation .interface-style-options button{min-height:44px;min-width:84px;font-size:13px;}}
+
+/* Confirmations are part of the same settings surface in both interface styles. */
+.clock-shell #confirm-action{--ui-highlight:color-mix(in srgb,var(--ui-accent,var(--board,#555)) 50%,white);background:linear-gradient(150deg,#242424,#121212);border:1px solid #555;border-radius:12px;color:#ededed;padding:0;overflow:hidden;box-shadow:0 22px 65px #0009;}
+.clock-shell #confirm-title{margin:0;padding:18px 22px;background:#242424;border-bottom:1px solid #444;font:700 20px/1.3 var(--font-controls);}
+.clock-shell #confirm-message{margin:0;padding:20px 22px;font:14px/1.65 var(--font-controls);overflow-wrap:anywhere;}
+.clock-shell #confirm-action>div{margin:0;padding:14px 22px;background:#1b1b1b;border-top:1px solid #444;}
+.clock-shell #confirm-action button{min-height:44px;padding:10px 16px;border-radius:7px;border:1px solid #555;background:#303030;color:#eee;font:600 14px/1.3 var(--font-controls);}
+.clock-shell #confirm-action .save-button{background:var(--ui-highlight);border-color:var(--ui-highlight);color:#111;}
+/* One type family for every piece of retro chrome, including explanatory copy,
+   totals, previews' captions and dialogs. Embedded clock documents remain separate. */
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer,.director-controls,#confirm-action,.toast),
+html[data-interface-style="forest"] .clock-shell :is(.setup-drawer,.director-controls,#confirm-action,.toast) *{--font-controls:var(--forest-title);font-family:var(--forest-title);}
+html[data-interface-style="forest"] .clock-shell #confirm-action{background:var(--forest-cream);border:2px solid var(--forest-edge);border-radius:10px;color:var(--forest-ink);box-shadow:5px 6px 0 var(--forest-shadow),0 22px 65px #0008;}
+html[data-interface-style="forest"] .clock-shell #confirm-title{background:var(--retro-header);border-bottom:2px solid var(--forest-edge);color:var(--forest-paper);font-family:var(--forest-title);}
+html[data-interface-style="forest"] .clock-shell #confirm-message{color:var(--forest-ink);font-family:var(--forest-title);}
+html[data-interface-style="forest"] .clock-shell #confirm-action>div{background:var(--retro-soft);border-top:1px solid var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell #confirm-action button{font-family:var(--forest-title);font-weight:700;background:var(--forest-paper);color:var(--forest-ink);border:2px solid var(--forest-edge);box-shadow:2px 3px 0 var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell #confirm-action .save-button{background:var(--forest-mint);}
+@media(max-width:420px){.clock-shell #confirm-title{padding:16px;font-size:18px;}.clock-shell #confirm-message{padding:16px;}.clock-shell #confirm-action>div{padding:12px 16px;}.clock-shell #confirm-action button{flex:1;min-width:0;white-space:normal;}}
+
+/* Align the style switch with the navigation keys; keep hover distinct from selection. */
+.clock-shell .control-navigation .interface-style-options{padding:2px;border-width:2px;}
+.clock-shell .control-navigation .interface-style-options button{min-height:40px;}
+.clock-shell .control-navigation .interface-style-options button[aria-pressed="false"]:hover{background:#343c37;color:#f4f7f4;}
+html[data-interface-style="forest"] .clock-shell .control-navigation .interface-style-options button[aria-pressed="false"]:hover{background:var(--retro-soft);color:var(--forest-ink);border-color:var(--forest-shadow);}
+.clock-shell .setup-tabs button:focus-visible{outline-offset:-5px;}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button:focus-visible{outline-offset:-5px;}
+html[data-interface-style="forest"] .clock-shell .drawer-header .icon-button:focus-visible{outline-color:var(--forest-paper);outline-offset:3px;}
+.clock-shell .settings-section-intro h2,.clock-shell .section-title h2,.clock-shell .payout-calculator h2{font-size:20px;line-height:1.3;}
+html[data-interface-style="forest"] .clock-shell :is(.settings-section-intro h2,.section-title h2,.payout-calculator h2){font-size:22px;line-height:1.3;letter-spacing:-.035em;}
+html[data-interface-style="forest"] .clock-shell .setup-tabs button:not(.active):hover{background:var(--forest-paper);box-shadow:inset 0 -3px 0 var(--forest-shadow);}
+@media(max-width:560px){.clock-shell .control-navigation .interface-style-options button{min-height:44px;}html[data-interface-style="forest"] .clock-shell :is(.settings-section-intro h2,.section-title h2,.payout-calculator h2){font-size:20px;}}
+
+/* Sharing actions use the same balanced rows as the rest of Settings. */
+.clock-shell #panel-sharing .share-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.clock-shell #panel-sharing .share-actions :is(button,a){display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;padding:10px 12px;text-align:center;white-space:normal;}
+.clock-shell #panel-sharing #sharing-help{margin-top:0;font-size:13px;line-height:1.6;}
+
+/* Keep picker guidance and the selected-card badge legible in the retro palette. */
+html[data-interface-style="forest"] .clock-shell #theme-picker-dialog .theme-picker-header p{color:var(--forest-paper);opacity:1;}
+html[data-interface-style="forest"] .clock-shell #theme-picker-dialog .theme-choice[aria-pressed="true"] .theme-choice-status{color:var(--forest-ink);}
+.clock-shell #theme-picker-dialog .theme-choice-status{font-size:12px;line-height:1.4;}
+.clock-shell #theme-picker-dialog .theme-choice:not([aria-pressed="true"]) .theme-choice-status{display:none;}
+
+/* Balanced close controls: stable square hit area in either interface skin. */
+.clock-shell :is(#close-setup,#close-theme-picker){display:grid;place-items:center;flex:0 0 44px;align-self:start;width:44px;height:44px;min-width:44px;min-height:44px;max-height:44px;padding:0;box-sizing:border-box;border:1px solid #66706b;border-radius:9px;background:#252c29;color:#f1f4ef;font:400 26px/1 Arial,sans-serif;letter-spacing:0;text-indent:0;box-shadow:inset 0 1px 0 #ffffff12;}
+.clock-shell :is(#close-setup,#close-theme-picker):hover{background:#38433c;border-color:#9faea3;}
+html[data-interface-style="forest"] .clock-shell :is(#close-setup,#close-theme-picker){display:grid;place-items:center;width:44px;height:44px;min-height:44px;max-height:44px;padding:0;border:2px solid var(--forest-edge);border-radius:5px;background:var(--forest-paper);color:var(--forest-ink);font:400 26px/1 Arial,sans-serif;box-shadow:1px 2px 0 var(--forest-shadow);}
+
+.payout-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 22px;}
+.clock-shell .calculator-dialog{width:min(740px,calc(100vw - 28px));max-height:88dvh;padding:0;border:1px solid #53625a;border-radius:14px;background:#171c19;color:#edf2ee;box-shadow:0 24px 90px #000a;}
+.clock-shell .calculator-dialog[open]{display:flex;flex-direction:column;}
+.calculator-dialog::backdrop{background:#000b;backdrop-filter:blur(5px);}
+.calculator-dialog-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #53625a;}
+.calculator-dialog-header h2{margin:0!important;font-size:20px!important;}
+.calculator-dialog-body{padding:20px;overflow-y:auto;min-height:0;overscroll-behavior:contain;}
+.calculator-dialog-body .payout-calculator{margin:0;padding:0;border:0;background:transparent;}
+.clock-shell .calculator-close{width:44px;height:44px;min-height:44px!important;flex:0 0 44px;padding:0!important;display:grid;place-items:center;font:26px/1 Arial!important;border-radius:7px;}
+.icm-row-heading,.icm-player-row{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1fr) 44px;gap:10px;align-items:center;}
+.icm-row-heading{font-size:12px;margin-bottom:8px;}
+.icm-player-row{margin-bottom:10px;}.icm-player-row input{min-width:0;width:100%;box-sizing:border-box;}
+.icm-tools{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;}
+html[data-interface-style="forest"] .clock-shell .calculator-dialog{background:var(--forest-cream);color:var(--forest-ink);border:2px solid var(--forest-edge);border-radius:8px;}
+html[data-interface-style="forest"] .calculator-dialog-header{background:var(--retro-header);border-color:var(--forest-edge);}
+html[data-interface-style="forest"] .clock-shell .calculator-dialog-header h2{color:var(--forest-paper);}
+@media(max-width:480px){.calculator-dialog-body{padding:12px;}.calculator-dialog-header{padding:12px;}.icm-row-heading,.icm-player-row{gap:5px;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 36px;}.icm-player-row input{padding:7px!important;font-size:12px!important;}.icm-remove{min-width:36px;padding:0!important;}}
+/* Consistent breathing room inside calculator windows, independent of skin. */
+.clock-shell #payout-calculator-dialog .payout-calculator,
+html[data-interface-style="forest"] .clock-shell #payout-calculator-dialog .payout-calculator{padding:0;margin:0;border:0;box-shadow:none;border-radius:0;background:transparent;gap:22px;}
+.clock-shell #payout-calculator-dialog .calculator-fields{gap:20px 18px;}
+.clock-shell #payout-calculator-dialog .calculator-fields label{gap:9px;}
+.clock-shell #payout-calculator-dialog .calculator-results{padding-top:4px;}
+.clock-shell #payout-calculator-dialog .calculator-options .settings-disclosure summary{padding:14px 4px;}
+.clock-shell #payout-calculator-dialog .calculator-totals{padding:16px;}
+.clock-shell #save-close:disabled,
+html[data-interface-style="forest"] .clock-shell #save-close:disabled{background:#555b58;color:#dce0dd;border-color:#777d79;box-shadow:none;opacity:1;cursor:wait;}
+@media(max-width:480px){.clock-shell #payout-calculator-dialog .calculator-fields{gap:16px 12px;}}
+
+.structure-add-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+.structure-add-actions button{width:100%;min-width:0;min-height:44px;}
+html[data-interface-style="forest"] .clock-shell .levels-table td:last-child button{display:inline-grid;place-items:center;box-sizing:border-box;width:36px;height:36px;min-width:36px;min-height:36px;max-height:36px;padding:0;border-radius:5px;font:24px/1 Arial,sans-serif;box-shadow:1px 2px 0 var(--forest-shadow);vertical-align:middle;}
+
+#panel-blinds>.section-title{align-items:flex-start;gap:12px;}
+#panel-blinds>.section-title>.blind-options{flex:none;margin:0 0 0 auto;padding:0;}
+#panel-blinds>.section-title>.blind-options label{display:flex;flex-direction:row;align-items:center;gap:8px;min-height:36px;margin:0;white-space:nowrap;font-size:13px;}
+#panel-blinds>.section-title>.blind-options input{margin:0;flex:none;}
+
+.sound-test-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:12px 0 20px;}
+#director-sound-check-status{font-size:12px;}
+
+.custom-announcement-controls{display:grid;gap:10px;margin-top:16px;min-width:0}.custom-announcement-controls textarea{box-sizing:border-box;width:100%;max-width:100%;resize:vertical;min-height:84px;padding:10px 12px;border:1px solid var(--ui-border,#67716e);border-radius:8px;background:var(--ui-input-bg,#18211e);color:inherit;font:inherit}.announcement-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}.announcement-actions span{font-size:12px;opacity:.7}.custom-announcement-controls p{margin:0;font-size:12px;line-height:1.5}.custom-announcement-controls p:empty{display:none}html[data-interface-style="forest"] .custom-announcement-controls textarea{border-radius:3px;background:#f1f2df;color:#16382c;font-family:inherit}
+
+/* Image library: calm, compact rows with one consistent action strip. */
+.clock-shell #image-library{padding:14px;margin:16px 12px;background:var(--ui-panel,#191d20);border:1px solid #49524c;border-radius:10px;box-shadow:none;}
+.clock-shell .image-library-header{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.clock-shell .image-library-header h3{margin:0;font:700 15px/1.3 var(--font-controls);color:inherit;}
+.clock-shell #load-image-library{min-height:36px;padding:6px 12px;font-size:12px;box-shadow:none;}
+.clock-shell #image-library-status{margin:8px 0 12px;font-size:12px;line-height:1.5;color:#b8c5bf;}
+.clock-shell #image-library-grid{display:flex;flex-direction:column;gap:0;}
+.clock-shell .image-library-card{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:center;gap:14px;padding:12px 0;border-top:1px solid #ffffff20;}
+.clock-shell .image-library-card img{width:76px;height:64px;object-fit:contain;border-radius:6px;background:#202b2e;padding:5px;box-sizing:border-box;}
+.clock-shell .image-library-actions{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.8fr) auto;align-items:center;gap:8px;}
+.clock-shell #image-library .image-library-actions button{min-height:38px;padding:7px 9px;font-size:12px;line-height:1.2;box-shadow:none;border-radius:6px;white-space:normal;}
+.clock-shell #image-library .image-library-actions .image-delete{margin:0;background:transparent;border-color:transparent;color:#efb3ad;padding-inline:8px;}
+.clock-shell #image-library .image-library-actions .image-delete:hover:not(:disabled){background:#713a332b;border-color:#a56b61;}
+.clock-shell .artwork-upload-row{padding:10px 12px;margin:0;align-items:center;gap:12px;}
+.clock-shell .artwork-upload-row label{display:flex;flex-direction:column;gap:7px;font-size:12px;}
+.clock-shell .artwork-upload-row button{min-height:36px;padding:7px 10px;box-shadow:none;font-size:12px;align-self:end;}
+.clock-shell .current-logo-preview{display:flex;align-items:center;gap:14px;padding:10px 12px;border-top:1px solid #ffffff20;font-size:12px;}
+.clock-shell .current-logo-preview[hidden]{display:none;}
+.clock-shell #logo-preview{width:100px;height:48px;padding:5px;object-position:center;}
+html[data-interface-style="forest"] .clock-shell #image-library{background:var(--forest-paper);border:1px solid var(--forest-shadow);color:var(--forest-ink);box-shadow:none;}
+html[data-interface-style="forest"] .clock-shell #image-library-status{color:var(--forest-muted);}
+html[data-interface-style="forest"] .clock-shell .image-library-header h3{font-family:var(--forest-title);}
+html[data-interface-style="forest"] .clock-shell .image-library-card,html[data-interface-style="forest"] .clock-shell .current-logo-preview{border-color:var(--forest-shadow);}
+html[data-interface-style="forest"] .clock-shell .image-library-card img{background:var(--retro-header);}
+html[data-interface-style="forest"] .clock-shell #image-library .image-library-actions .image-delete{color:#873d32;background:transparent;border-color:transparent;}
+@media(max-width:420px){.clock-shell .image-library-card{grid-template-columns:54px minmax(0,1fr);gap:8px;}.clock-shell .image-library-card img{width:54px;height:54px;}.clock-shell .image-library-actions{gap:4px;}.clock-shell #image-library .image-library-actions button{padding:7px 5px;font-size:11px;}}
+
+/* Explicit Retro X states override the square close-button base skin. */
+html[data-interface-style="forest"] .clock-shell :is(#close-setup,#close-theme-picker,.calculator-close,.levels-table td:last-child button):hover:not(:disabled){background:var(--forest-mint);color:var(--forest-ink);border-color:var(--retro-focus);box-shadow:1px 2px 0 var(--retro-focus),inset 0 0 0 1px var(--retro-focus);cursor:pointer;}
+html[data-interface-style="forest"] .clock-shell :is(#close-setup,#close-theme-picker,.calculator-close,.levels-table td:last-child button):focus-visible{outline:3px solid var(--retro-focus);outline-offset:3px;background:var(--forest-mint);}
+html[data-interface-style="forest"] .clock-shell :is(#close-setup,#close-theme-picker,.calculator-close,.levels-table td:last-child button):active:not(:disabled){box-shadow:inset 1px 2px 0 var(--forest-shadow);}
